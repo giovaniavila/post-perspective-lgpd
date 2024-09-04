@@ -7,6 +7,10 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({
   config,
+  text: { 
+    heading: "Palanquin, sans-serif",
+    body: "Palanquin, sans-serif"
+  },
   colors: {
     text: {
       title: "#FFFFFF",
