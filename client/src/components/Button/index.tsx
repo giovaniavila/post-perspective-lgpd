@@ -18,6 +18,11 @@ interface ButtonLinkProps {
   image?: React.ReactNode;
 }
 
+interface ButtonLogoutProps {
+  image?: string;
+  text: string;
+}
+
 export const Button = ({ text, ...rest }: ButtonProps) => {
   return (
     <ChakraButton
@@ -47,11 +52,28 @@ export const ButtonLink = ({
       backgroundColor="transparent"
       color="text.default"
       fontWeight="500"
-      _hover={{ filter: "brightness(0.8)", transition: ".3s" }}
+      _hover={{ color: "yellow.500" }}
+    >
+      <Flex alignItems="center" gap="10px">
+        {buttonName}
+      </Flex>
+    </Box>
+  );
+};
+
+export const ButtonLogout = ({ image, text, ...rest }: ButtonLogoutProps) => {
+  return (
+    <Box
+      {...rest}
+      backgroundColor="transparent"
+      color="#9B2C2C"
+      fontWeight="500"
+      _hover={{ filter: "brightness(0.8)", transition: ".3s", cursor: "pointer" }}
+      p=".5rem"
     >
       <Flex alignItems="center" gap="10px">
         <Image src={image} />
-        {buttonName}
+        {text}
       </Flex>
     </Box>
   );

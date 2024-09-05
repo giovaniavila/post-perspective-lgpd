@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../pages/login";
 import Home from "../pages/home";
-import SomePage from "../pages/somepage";
+import SomePage from "../pages/profile";
 
 const MainRoutes = () => {
   return (

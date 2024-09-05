@@ -1,5 +1,5 @@
 import { Grid, Box } from "@chakra-ui/react";
-import Sidebar from "../../components/sidebar";
+import Sidebar from "../../components/Header";
 
 const SomePage = () => {
   return (

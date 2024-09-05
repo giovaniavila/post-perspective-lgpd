@@ -1,32 +1,35 @@
-import { Flex } from "@chakra-ui/react";
-import { ButtonLink } from "../Button";
-import { Header } from "./Header";
-import HomeImage from "../../assets/ButtonLink/Home.svg";
-import InsightImage from "../../assets/ButtonLink/Insight.svg";
+import { Avatar, Box, Heading, Text, Flex } from "@chakra-ui/react";
+import { Button, ButtonLogout } from "../Button";
+import logout from "../../assets/logout.svg"
 
 const Sidebar = () => {
   return (
-    <Flex
-      flexDir="column"
-      gap="10px"
-      backgroundColor="yellow.700"
-      justifyItems="center"
-      p="1.25rem"
-    >
-      <Header name="Giovani" role="Admin" />
-      <Flex direction="column" alignItems="start" gap="1.875rem" mt="1.875rem" ml=".625rem">
-        <ButtonLink
-          href="/home"
-          buttonName="Home"
-          image={HomeImage}
-        />
-        <ButtonLink
-          href="/somepage"
-          buttonName="Some Page"
-          image={InsightImage}
-        />
-      </Flex>
-    </Flex>
+    <Box p="1rem 1.5rem">
+      <Heading id="user-profile-settings" as="h2" fontSize="24px">
+        User Profile
+      </Heading>
+      <Box as="section" mt=".8rem">
+        <Flex
+          direction="column"
+          alignItems="center"
+          border="1px solid #eee"
+          borderRadius="15px"
+          p="1.4rem"
+          role="region"
+          aria-labelledby="user-profile-settings"
+        >
+          <Flex direction="column" alignItems="center" gap="8px">
+            <Avatar size="xl" />
+            <Text as="p" fontWeight="500">Jane Doe</Text>
+          </Flex>
+          <Button text="edit Profile" mt="2rem"  w="100%"/>
+        </Flex>
+        <Box mt="2rem">
+            <Heading as="h2" fontSize="20px">Actions</Heading>
+            <ButtonLogout text="Logout" image={logout}/>
+          </Box>
+      </Box>
+    </Box>
   );
 };
 
