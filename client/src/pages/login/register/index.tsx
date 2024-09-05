@@ -1,18 +1,17 @@
 import {
   Flex,
   FormControl,
-  Input,
   FormLabel,
-  Checkbox,
+  Input,
   Link,
 } from "@chakra-ui/react";
-import { Button } from "../../components/Button";
+import { Button } from "../../../components/Button";
 
-interface LoginFormProps {
-  setIsRegistering: (value: boolean) => void;
+interface RegisterProps {
+  setIsRegistering: (value: boolean) => void; 
 }
 
-export function LoginForm({ setIsRegistering }: LoginFormProps) {
+export default function Register({setIsRegistering}: RegisterProps) {
   return (
     <Flex flexDirection="column" gap="20px" paddingTop="1.5rem">
       <FormControl>
@@ -26,6 +25,16 @@ export function LoginForm({ setIsRegistering }: LoginFormProps) {
         />
       </FormControl>
       <FormControl>
+        <FormLabel htmlFor="password">Occupation</FormLabel>
+        <Input
+          type="text"
+          h="3.125rem"
+          fontSize="0.875rem"
+          id="Ocuppation"
+          placeholder="Enter your ocuppation"
+        />
+      </FormControl>
+      <FormControl>
         <FormLabel htmlFor="password">Password</FormLabel>
         <Input
           type="password"
@@ -35,20 +44,15 @@ export function LoginForm({ setIsRegistering }: LoginFormProps) {
           placeholder="Enter your password"
         />
       </FormControl>
-      <Flex justifyContent="space-between" marginTop="0.8125rem">
-        <Checkbox defaultChecked colorScheme="yellow" size="sm">
-          Do you want to save the password?
-        </Checkbox>
-        <Link
+      <Link
           fontWeight="600"
           color="yellow.500"
           fontSize="0.8125rem"
-          onClick={() => setIsRegistering(true)}
+          onClick={() => setIsRegistering(false)}
         >
-          New User?
+          Back to Login
         </Link>
-      </Flex>
-      <Button text="Login" h="3.125rem" />
+      <Button text="Register" h="3.125rem" />
     </Flex>
   );
 }
