@@ -7,30 +7,30 @@ const config: ThemeConfig = {
 
 const theme = extendTheme({
   config,
-  text: {
+  text: { 
     heading: "Palanquin, sans-serif",
-    body: "Palanquin, sans-serif",
+    body: "Palanquin, sans-serif"
   },
   colors: {
     text: {
       title: "#FFFFFF",
       subtitle: "#AAB5D0",
-      default: "#E4EBFB",
+      default: "#E4EBFB"
     },
     background: {
       50: "#121E31",
     },
-    yellow: {
-      50: "#f9f3e0",
-      100: "#f3e7c2",
-      200: "#eedd9f",
-      300: "#e8d27c",
-      400: "#e2c85a",
-      500: "#d9b84d", // Cor base
-      600: "#b39b3f",
-      700: "#8d7b31",
-      800: "#665a24",
-      900: "#403a16",
+    purple: {
+      50: "#e5e4ff",
+      100: "#c4c3ff",
+      200: "#a2a1ff",
+      300: "#807eff",
+      400: "#5e5bff",
+      500: "#6C63FF", // Cor base
+      600: "#4a49cc",
+      700: "#383799",
+      800: "#262566",
+      900: "#131233",
     },
   },
   breakpoints: {

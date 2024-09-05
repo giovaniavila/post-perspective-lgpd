@@ -23,7 +23,7 @@ export const Button = ({ text, ...rest }: ButtonProps) => {
     <ChakraButton
       marginTop="5px"
       borderRadius="5px"
-      backgroundColor="yellow.500"
+      backgroundColor="purple.500"
       color="white"
       {...rest}
       _hover={{ filter: "brightness(0.8)", transition: ".3s" }}

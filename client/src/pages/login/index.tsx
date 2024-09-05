@@ -2,12 +2,8 @@ import { Grid, Box, Image, Heading, Text, Flex } from "@chakra-ui/react";
 import { LoginForm } from "./Form";
 import login from "../../assets/login.svg";
 import cabin from "../../assets/cabin.svg";
-import { useState } from "react";
-import Register from "./register";
 
 const Login = () => {
-  const [isRegistering, setIsRegistering] = useState(false);
-
   return (
     <Grid gridTemplateColumns={{ base: "1fr", lg: "1.3fr 1fr " }} h="100vh">
       <Box>
@@ -27,11 +23,7 @@ const Login = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </Text>
         </Flex>
-        {isRegistering ? (
-          <Register setIsRegistering={setIsRegistering} />
-        ) : (
-          <LoginForm setIsRegistering={setIsRegistering} />
-        )}
+        <LoginForm />
       </Grid>
     </Grid>
   );
