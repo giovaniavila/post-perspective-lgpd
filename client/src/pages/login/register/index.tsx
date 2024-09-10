@@ -1,4 +1,5 @@
 import {
+  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -6,12 +7,13 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { Button } from "../../../components/Button";
+import ModalTermsAndConditions from "../../../components/Modals";
 
 interface RegisterProps {
-  setIsRegistering: (value: boolean) => void; 
+  setIsRegistering: (value: boolean) => void;
 }
 
-export default function Register({setIsRegistering}: RegisterProps) {
+export default function Register({ setIsRegistering }: RegisterProps) {
   return (
     <Flex flexDirection="column" gap="20px" paddingTop="1.5rem">
       <FormControl>
@@ -21,6 +23,16 @@ export default function Register({setIsRegistering}: RegisterProps) {
           h="3.125rem"
           fontSize="0.875rem"
           id="userName"
+          color="gray.400"
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel htmlFor="email">Email</FormLabel>
+        <Input
+          type="text"
+          h="3.125rem"
+          fontSize="0.875rem"
+          id="email"
           color="gray.400"
         />
       </FormControl>
@@ -44,7 +56,9 @@ export default function Register({setIsRegistering}: RegisterProps) {
           placeholder="Enter your password"
         />
       </FormControl>
-      <Link
+      <Flex alignItems="center" justifyContent="space-between">
+        <ModalTermsAndConditions />
+        <Link
           fontWeight="600"
           color="yellow.500"
           fontSize="0.8125rem"
@@ -52,6 +66,8 @@ export default function Register({setIsRegistering}: RegisterProps) {
         >
           Back to Login
         </Link>
+      </Flex>
+
       <Button text="Register" h="3.125rem" />
     </Flex>
   );
