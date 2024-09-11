@@ -23,6 +23,11 @@ interface ButtonLogoutProps {
   text: string;
 }
 
+interface ButtonUserProfileProps {
+  buttonName: string;
+  href: string;
+}
+
 export const Button = ({ text, ...rest }: ButtonProps) => {
   return (
     <ChakraButton
@@ -68,7 +73,11 @@ export const ButtonLogout = ({ image, text, ...rest }: ButtonLogoutProps) => {
       backgroundColor="transparent"
       color="#9B2C2C"
       fontWeight="500"
-      _hover={{ filter: "brightness(0.8)", transition: ".3s", cursor: "pointer" }}
+      _hover={{
+        filter: "brightness(0.8)",
+        transition: ".3s",
+        cursor: "pointer",
+      }}
       p=".5rem"
     >
       <Flex alignItems="center" gap="10px">
@@ -76,5 +85,28 @@ export const ButtonLogout = ({ image, text, ...rest }: ButtonLogoutProps) => {
         {text}
       </Flex>
     </Box>
+  );
+};
+
+export const ButtonUserProfile = ({
+  buttonName,
+  href,
+}: ButtonUserProfileProps) => {
+  return (
+    <ChakraButton
+      as={RouterLink}
+      mt="10px"
+      to={href}
+      w="20vw"
+      color="white"
+      bgColor="yellow.500"
+      borderRadius="5px"
+      _hover={{
+        bgColor: "yellow.600",
+        filter: "brigthness(0.8)"
+      }}
+    >
+      {buttonName}
+    </ChakraButton>
   );
 };
