@@ -19,8 +19,8 @@ class commentsModel {
 
     createComment (newComment) { 
         const sql = `
-            INSERT INTO COMMENTS (user_id, post_id, content, created_at, updated_at, deleted_at)
-            VALUES ($1, $2, $3, NOW(), NOW(), NOW()) 
+            INSERT INTO COMMENTS (user_id, post_id, content, created_at)
+            VALUES ($1, $2, $3, NOW()) 
             RETURNING * ;
         `;
         

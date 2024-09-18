@@ -17,9 +17,10 @@ class postsModel {
         });
     }
 
+    
     createPost (newPost) { 
         const sql = `
-            INSERT INTO POSTS (title, content, updated_at)
+            INSERT INTO POSTS (title, content, created_at)
             VALUES ($1, $2, NOW()) 
             RETURNING * ;
         `;
@@ -36,6 +37,7 @@ class postsModel {
         return this.executeQuery(sql)
     }
 
+
     updatePost (postToUpdate, id) {
         const sql = `
             UPDATE POSTS 
@@ -49,6 +51,7 @@ class postsModel {
         return this.executeQuery(sql, params);
     }
 
+    
     deletePost (id) {
         const sql = `DELETE FROM POSTS WHERE id = $1 RETURNING * ; `;  
         const params = [id];
