@@ -1,5 +1,5 @@
 import { Avatar, Box, Heading, Text, Flex } from "@chakra-ui/react";
-import { Button, ButtonLink, ButtonLogout, ButtonUserProfile } from "../Button";
+import { ButtonLogout, ButtonUserProfile } from "../Button";
 import logout from "../../assets/logout.svg";
 
 const Sidebar = () => {
@@ -24,7 +24,7 @@ const Sidebar = () => {
               Jane Doe
             </Text>
           </Flex>
-          <ButtonUserProfile href="/home/userprofile" buttonName="Edit User"/>
+          <ButtonUserProfile href="/home/userprofile" buttonName="Edit User" />
         </Flex>
         <Box mt="2rem">
           <Heading as="h2" fontSize="20px">

@@ -14,11 +14,13 @@ const Header = () => {
     >
       <Flex fontFamily="heading" fontWeight="400" alignItems="center" gap="6px">
         <Image src={logo} />
-        <Text fontSize="1.4375rem" letterSpacing=".5px" color="text.default">Blog System</Text>
+        <Text fontSize="1.4375rem" letterSpacing=".5px" color="text.default">
+          Blog System
+        </Text>
       </Flex>
       <Flex alignItems="center" gap="1.5625rem">
         <ButtonLink href="/home" buttonName="Home" />
-        <ButtonLink href="/profile" buttonName="Profile" />
+        <ButtonLink href="/home/userprofile" buttonName="Profile" />
       </Flex>
     </Flex>
   );

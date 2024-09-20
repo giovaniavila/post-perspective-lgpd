@@ -1,7 +1,25 @@
 import { Heading, Text, Image, Flex } from "@chakra-ui/react";
 import comments from "../../assets/comments.svg";
+import { useNavigate } from "react-router-dom";
 
-export default function CardPost() {
+interface CardPostProps {
+  id: string;
+  title: string;
+  content: string;
+}
+
+function navigateTo(id: string) {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate(`/home/posts/${id}`);
+  }
+
+  return { handleClick };
+}
+
+export default function CardPost({ id, title, content }: CardPostProps) {
+  const { handleClick } = navigateTo(id);
   return (
     <Flex
       direction="column"
@@ -14,13 +32,13 @@ export default function CardPost() {
         transform: "translateX(6px)",
         transition: "transform 0.2s ease-in-out",
       }}
+      onClick={handleClick}
     >
       <Heading as="h2" fontSize="25px" fontWeight="600">
-        Understanding FlexBox
+        {title}
       </Heading>
       <Text fontSize="15px" color="gray.500">
-        Flexbox is a powerful layout module that gives you control over
-        alignment, direction, order, and size..
+        {content}
       </Text>
       <Flex gap="10px">
         <Image src={comments} />

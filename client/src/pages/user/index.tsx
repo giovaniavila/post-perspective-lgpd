@@ -1,11 +1,29 @@
-import { Flex, FormControl, FormLabel, Input, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+} from "@chakra-ui/react";
 import ModalTermsAndConditions from "../../components/Modals";
 import { Button } from "../../components/Button";
 
 export default function UserProfile() {
   return (
-    <Flex flexDirection="column" gap="20px" paddingTop="1.5rem">
-      <FormControl>
+    <Flex
+      flexDirection="column"
+      gap="20px"
+      p="3.75rem"
+      boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+    >
+      <Flex alignItems="center" gap="10px">
+        <Box w="10px" h="30px" bg="yellow.400" />
+        <Heading as="h1" id="titulo-editar-usuario">
+          Editar Usuário
+        </Heading>
+      </Flex>
+      <FormControl aria-labelledby="titulo-editar-usuario">
         <FormLabel htmlFor="userName">Name</FormLabel>
         <Input
           type="text"
@@ -45,14 +63,8 @@ export default function UserProfile() {
           placeholder="Enter your password"
         />
       </FormControl>
-      <Flex alignItems="center" justifyContent="space-between">
-        <ModalTermsAndConditions />
-        <Link fontWeight="600" color="yellow.500" fontSize="0.8125rem">
-          Save
-        </Link>
-      </Flex>
-
-      <Button text="Register" h="3.125rem" />
+      <ModalTermsAndConditions />
+      <Button text="Salvar" h="2.5rem" maxW="15vw" />
     </Flex>
   );
 }

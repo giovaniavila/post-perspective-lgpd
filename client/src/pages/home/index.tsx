@@ -1,27 +1,9 @@
 import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 import Header from "../../components/Header";
-import Sidebar from "../../components/sidebar";
-import PostSection from "./PostSection/PostSection";
-import { useLocation } from "react-router-dom";
-import UserProfile from "../user";
-
-const location = () => {
-  const location = useLocation();
-  const renderContent = () => {
-    switch (location.pathname) {
-      case "/profile":
-        return <UserProfile />;
-      case "/post/:id":
-        return <PostSection />;
-      default:
-        return <PostSection />;
-    }
-  };
-  return { renderContent };
-};
+import Sidebar from "../../components/Sidebar";
+import { Outlet } from "react-router-dom";
 
 const Home = () => {
-  const { renderContent } = location();
   return (
     <Grid gridTemplateColumns="1fr" h="100vh" gridTemplateRows=".1fr 2fr .1fr">
       <Box gridRow="1" as="header">
@@ -31,7 +13,9 @@ const Home = () => {
         <Box as="aside" boxShadow="2px 0px 3px -2px rgba(0,0,0,0.2)">
           <Sidebar />
         </Box>
-        <Box>{renderContent()}</Box>
+        <Box p="3.75rem">
+          <Outlet />
+        </Box>
       </Grid>
       <Flex
         as="footer"
