@@ -7,6 +7,7 @@ class usersTable {
 
     createUsersTable() {
         const sql = `
+
             CREATE TABLE IF NOT EXISTS USERS (
             id SERIAL PRIMARY KEY,
             role VARCHAR(10) NOT NULL CHECK (role IN ('admin', 'user')),
@@ -16,11 +17,11 @@ class usersTable {
             name VARCHAR(100) NOT NULL,
             email VARCHAR(100) NOT NULL UNIQUE,
             password_hash VARCHAR(255) NOT NULL,
-            created_at TIMESTAMP DEFAULT NOW(),
-            updated_at TIMESTAMP DEFAULT NOW(),
-            deleted_at TIMESTAMP DEFAULT NULL
+            created_at TIMESTAMP,
+            updated_at TIMESTAMP,
+            deleted_at TIMESTAMP 
         );
-
+        
         `
         pool.query(sql, (error, result) => {
             if(error) {
