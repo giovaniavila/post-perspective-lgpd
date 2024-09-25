@@ -60,7 +60,7 @@ export default function UserProfile() {
           h="3.125rem"
           fontSize="0.875rem"
           id="password"
-          placeholder="Enter your password"
+          placeholder="Confirm your password to update your information"
         />
       </FormControl>
       <ModalDeleteUser/>

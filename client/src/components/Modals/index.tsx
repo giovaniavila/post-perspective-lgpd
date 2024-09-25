@@ -15,6 +15,7 @@ import {
   UnorderedList,
   ListItem,
 } from "@chakra-ui/react";
+import { GoAlertFill } from "react-icons/go";
 
 export default function ModalTermsAndConditions() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -264,7 +265,11 @@ export function ModalDeleteUser() {
         color="red.600"
         h="20px"
         fontSize="14px"
+        display="flex"
+        gap="10px"
+        alignItems="center"
       >
+        <GoAlertFill/>
         Solicitar exclusâo da conta
       </Text>
 
