@@ -6,7 +6,7 @@ import {
   Heading,
   Input,
 } from "@chakra-ui/react";
-import ModalTermsAndConditions from "../../components/Modals";
+import ModalTermsAndConditions, { ModalDeleteUser } from "../../components/Modals";
 import { Button } from "../../components/Button";
 
 export default function UserProfile() {
@@ -63,6 +63,7 @@ export default function UserProfile() {
           placeholder="Enter your password"
         />
       </FormControl>
+      <ModalDeleteUser/>
       <ModalTermsAndConditions />
       <Button text="Salvar" h="2.5rem" maxW="15vw" />
     </Flex>

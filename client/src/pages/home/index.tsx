@@ -1,6 +1,6 @@
 import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 import Header from "../../components/Header";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/sidebar";
 import { Outlet } from "react-router-dom";
 
 const Home = () => {

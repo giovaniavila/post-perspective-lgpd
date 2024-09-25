@@ -247,3 +247,111 @@ export default function ModalTermsAndConditions() {
     </>
   );
 }
+
+export function ModalDeleteUser() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  return (
+    <>
+      <Text
+        _hover={{
+          bgColor: "transparent",
+          color: "#C53030",
+          cursor: "pointer",
+        }}
+        bgColor="transparent"
+        onClick={onOpen}
+        color="red.600"
+        h="20px"
+        fontSize="14px"
+      >
+        Solicitar exclusâo da conta
+      </Text>
+
+      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <ModalContent
+          maxH="60vh"
+          maxW="40vw"
+          overflowY="auto"
+          p="10px"
+          css={{
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#C53030",
+              borderRadius: "4px",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              backgroundColor: "#C53030",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "#C53030.",
+            },
+          }}
+        >
+          <ModalHeader>Atenção: exclusão de dados</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Flex gap="1.5625rem" direction="column">
+              <Box>
+                <Text id="coleta-dados">
+                  Você está prestes a solicitar a exclusão dos seus dados da
+                  conta. É importante que você esteja ciente das seguintes
+                  consequências:
+                  <UnorderedList
+                    display="flex"
+                    flexDirection="column"
+                    gap="12px"
+                  >
+                    <ListItem mt="8px">
+                      <strong>Perda de acesso:</strong> Ao confirmar a exclusão,
+                      você perderá o acesso à sua conta e não poderá
+                      recuperá-la.
+                    </ListItem>
+                    <ListItem>
+                      <strong>Remoção de dados:</strong> Todos os seus dados
+                      pessoais serão permanentemente apagados e não poderão ser
+                      recuperados. .
+                    </ListItem>
+                    <ListItem>
+                      <strong>Impacto nos serviços:</strong> Você não poderá
+                      mais utilizar os serviços oferecidos pela nossa
+                      plataforma, incluindo qualquer conteúdo ou informações
+                      vinculadas à sua conta.
+                    </ListItem>
+                    <ListItem>
+                      <strong>Processo Irreversível :</strong> A exclusão é um
+                      processo irreversível. Uma vez concluído, não será
+                      possível restaurar seus dados ou a conta.
+                    </ListItem>
+                  </UnorderedList>
+                  <Text mt="1rem">
+                    Se você tem certeza de que deseja prosseguir com a exclusão,
+                    clique em "Confirmar". Caso contrário, você pode voltar à
+                    sua conta e continuar utilizando nossos serviços.
+                  </Text>
+                  <Text mt="1rem">Agradecemos por sua compreensão.</Text>
+                </Text>
+              </Box>
+            </Flex>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              onClick={onClose}
+              bgColor="red.500"
+              color="white"
+              _hover={{
+                bgColor: "#C53030",
+                filer: "brightness(0.8)",
+              }}
+            >
+              Excluir conta
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
