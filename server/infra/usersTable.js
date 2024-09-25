@@ -1,12 +1,12 @@
-const pool = require('../infra/connection');
+const pool = require("../infra/connection");
 
 class usersTable {
-    init () {
-        this.createUsersTable();
-    }
+  init() {
+    this.createUsersTable();
+  }
 
-    createUsersTable() {
-        const sql = `
+  createUsersTable() {
+    const sql = `
 
             CREATE TABLE IF NOT EXISTS USERS (
             id SERIAL PRIMARY KEY,
@@ -22,18 +22,16 @@ class usersTable {
             deleted_at TIMESTAMP 
         );
         
-        `
-        pool.query(sql, (error, result) => {
-            if(error) {
-                console.log("Error creating Users table: ", error);
-                return;
-            } else {
-                console.log("Users table created successfully.");
-            }
-        });
-    }
+        `;
+    pool.query(sql, (error, result) => {
+      if (error) {
+        console.log("Error creating Users table: ", error);
+        return;
+      } else {
+        console.log("Users table created successfully.");
+      }
+    });
+  }
 }
-
-
 
 module.exports = new usersTable();
