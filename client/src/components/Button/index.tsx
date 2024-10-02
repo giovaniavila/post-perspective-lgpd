@@ -6,7 +6,7 @@ import {
   Flex,
   Image,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 interface ButtonProps extends ChakraButtonProps {
   text: string;
@@ -67,12 +67,20 @@ export const ButtonLink = ({
 };
 
 export const ButtonLogout = ({ image, text, ...rest }: ButtonLogoutProps) => {
+  const navigate = useNavigate();
+
+  const handleLogout = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    navigate("/");
+  };
+
   return (
     <Box
       {...rest}
       backgroundColor="transparent"
       color="#9B2C2C"
       fontWeight="500"
+      onClick={handleLogout}
       _hover={{
         filter: "brightness(0.8)",
         transition: ".3s",
@@ -81,7 +89,7 @@ export const ButtonLogout = ({ image, text, ...rest }: ButtonLogoutProps) => {
       p=".5rem"
     >
       <Flex alignItems="center" gap="10px">
-        <Image src={image} />
+        {image && <Image src={image} />}
         {text}
       </Flex>
     </Box>
@@ -103,7 +111,7 @@ export const ButtonUserProfile = ({
       borderRadius="5px"
       _hover={{
         bgColor: "yellow.600",
-        filter: "brigthness(0.8)"
+        filter: "brigthness(0.8)",
       }}
     >
       {buttonName}
