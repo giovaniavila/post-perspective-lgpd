@@ -69,6 +69,22 @@ class usersModel {
 
         return this.executeQuery(sql, params);
     }
+
+    async findUserByEmail(email) {
+        const sql = `SELECT * FROM USERS WHERE email = $1;`;
+        const params = [email];
+        const result = await this.executeQuery(sql, params);
+        return result[0]; 
+    }
+    
+    async verifyPassword(email, password) {
+        const user = await this.findUserByEmail(email); 
+        if (!user) return null;
+    
+        const isMatch = await bcrypt.compare(password, user.password_hash); 
+        return isMatch ? user : null;
+    }
+    
 }
 
 module.exports = new usersModel();
