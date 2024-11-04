@@ -1,11 +1,10 @@
 const { Router } = require("express");
 const router = Router();
-const usersController = require("../controllers/usersControllers");
+const usersController = require("../controllers/usersController");
 
 router.get("/users", usersController.read)
 
 router.post("/users", usersController.create)
-router.post("/login", usersController.login)
 
 router.put("/users/:id", usersController.update)
 

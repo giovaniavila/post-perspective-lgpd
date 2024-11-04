@@ -1,33 +1,36 @@
-const pool = require('../infra/connection');
-
 class commentsTable {
-    
-    init () {    
-        this.createCommentsTable();
+
+    init(connection) {
+        this.connection = connection;
+        this.createTableComments();
     }
 
-    createCommentsTable() {
+    createTableComments(){
         const sql = `
+            CREATE TABLE IF NOT EXISTS COMMENTS (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id INT NOT NULL,
+                post_id INT NOT NULL,
+                content TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                deleted_at TIMESTAMP NULL DEFAULT NULL,
+                FOREIGN KEY (user_id) REFERENCES USERS(id),
+                FOREIGN KEY (post_id) REFERENCES POSTS(id)
+            );
         
-            CREATE TABLE IF NOT EXISTS COMMENTS  (
-            id SERIAL PRIMARY KEY,
-            user_id INT NOT NULL REFERENCES USERS(id),
-            post_id INT NOT NULL REFERENCES POSTS(id),
-            content TEXT NOT NULL,
-            created_at TIMESTAMP,
-            updated_at TIMESTAMP,
-            deleted_at TIMESTAMP 
-        );
-
         `
-        pool.query(sql, (error, result) => {
-            if(error) {
+
+        this.connection.query(sql, (error) => {
+            if (error) {
                 console.log("Error creating Comments table: ", error);
                 return;
+            } else {
+                console.log("Comments table created successfully.");
             }
-            console.log('Comments table created successfully.')
         });
     }
+
 }
 
 module.exports = new commentsTable();

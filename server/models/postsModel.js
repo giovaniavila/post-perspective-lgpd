@@ -1,63 +1,66 @@
 const connection = require('../infra/connection');
 
 class postsModel {
+    executeQuery(sql, parametros = "") {
 
-    executeQuery(sql, param = []) {
         return new Promise((resolve, reject) => {
-            try {
-                connection.query(sql, param, (error, answer) => {
-                    if(error){
-                        return reject(error);
-                    }
-                    return resolve(answer.rows);
-                });
-            } catch(error) {
-                reject(error);
+    
+          connection.query(sql, parametros, (error, answer) => {
+            if (error) {
+              return reject(error);
             }
+            return resolve(answer);
+          });
+    
         });
+    
     }
 
-    
-    createPost (newPost) { 
+    createPost(newPost) {
         const sql = `
-            INSERT INTO POSTS (title, content, created_at)
-            VALUES ($1, $2, NOW()) 
-            RETURNING * ;
+          INSERT INTO POSTS 
+            (title, content, created_at)
+          VALUES (?, ?, NOW());
         `;
         
-        const params = [newPost.title, newPost.content];
-
-        return this.executeQuery(sql, params)
-
-    }
-
-    readPosts () {
-        const sql = `SELECT * FROM POSTS; `;
-
-        return this.executeQuery(sql)
-    }
-
-
-    updatePost (postToUpdate, id) {
+        const params = [
+          newPost.title,
+          newPost.content  
+        ];
+    
+        return this.executeQuery(sql, params);
+      }
+    
+      readPosts() {
+        const sql = "SELECT * FROM POSTS";
+          
+        return this.executeQuery(sql);
+      }
+    
+      updatePost(updatedPost, id) {
         const sql = `
-            UPDATE POSTS 
-            SET title = $1, content = $2, updated_at = NOW()
-            WHERE id = $3
-            RETURNING * ;
+          UPDATE POSTS SET 
+            title = ?, 
+            content = ?, 
+            updated_at = NOW()
+          WHERE id = ? ;
         `;
         
-        const params = [postToUpdate.title, postToUpdate.content, id];
-
-        return this.executeQuery(sql, params);
-    }
-
+        const params = [
+          updatedPost.title,
+          updatedPost.content,
+          id
+        ];
     
-    deletePost (id) {
-        const sql = `DELETE FROM POSTS WHERE id = $1 RETURNING * ; `;  
-        const params = [id];
-
         return this.executeQuery(sql, params);
-    }
+      }
+    
+      deletePost(id) {
+        const sql = "DELETE FROM POSTS WHERE id = ? ;";
+    
+        return this.executeQuery(sql, id);
+      }
+
 }
 
-module.exports = new postsModel();
+module.exports = new postsModel;
