@@ -22,7 +22,7 @@ class usersModel {
       INSERT INTO USERS 
         (username, full_name, admin, profession, birthplace, email, password_hash, created_at)
       VALUES (?, ?, ?, ?, ?, ?, ?, NOW());
-    `;
+      `;
     
     const params = [
       newUser.username,
@@ -42,6 +42,27 @@ class usersModel {
     const sql = "SELECT * FROM USERS";
       
     return this.executeQuery(sql);
+  }
+
+
+  // método novo
+  readUserByID(id) {
+    const sql = `
+        SELECT 
+          id, 
+          username, 
+          full_name,  
+          profession, 
+          birthplace, 
+          email, 
+          created_at, 
+          updated_at, 
+          deleted_at
+        FROM users 
+        WHERE id = ?;
+      `;
+      
+    return this.executeQuery(sql, id);
   }
 
   updateUser(updatedUsers, id) {
@@ -70,7 +91,6 @@ class usersModel {
     ];
 
     return this.executeQuery(sql, params)
-
   }
 
   deleteUser(id) {

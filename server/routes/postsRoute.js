@@ -4,6 +4,8 @@ const postsController = require("../controllers/postsController");
 
 router.get("/posts", postsController.read)
 
+router.get
+
 router.post("/posts", postsController.create)
 
 router.put("/posts/:id", postsController.update)
