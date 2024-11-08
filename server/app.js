@@ -4,6 +4,7 @@ const port = 3000;
 const cors = require("cors");
 
 app.use(cors());
+require('dotenv').config();
 
 const connection = require("./infra/connection");
 

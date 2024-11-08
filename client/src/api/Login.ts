@@ -9,6 +9,12 @@ export const postLogin = async (credentials: {
       "http://localhost:3000/login",
       credentials
     );
+    const { token } = response.data;
+
+    if (token) {
+      localStorage.setItem("authToken", token);
+    }
+
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

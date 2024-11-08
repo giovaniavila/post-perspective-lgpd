@@ -59,6 +59,11 @@ class usersModel {
     return this.executeQuery(sql);
   }
 
+  readUserById(id) {
+    const sql = "SELECT * FROM USERS WHERE id = ?";
+    return this.executeQuery(sql, [id]);
+  }
+
   updateUser(updatedUsers, id) {
     const sql = `
       UPDATE USERS SET 

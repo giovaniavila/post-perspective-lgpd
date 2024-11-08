@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUsers } from "../api/users";
+import { getUserById, getUsers } from "../api/users";
 
 export const useUsers = () => {
   const { data, refetch, isLoading } = useQuery({
@@ -7,5 +7,13 @@ export const useUsers = () => {
     queryFn: getUsers,
   });
 
+  return { data, refetch, isLoading };
+};
+
+export const useUsersById = (userId: number) => {
+  const { data, refetch, isLoading } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserById(userId),
+  });
   return { data, refetch, isLoading };
 };

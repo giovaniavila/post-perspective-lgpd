@@ -1,8 +1,17 @@
-import { Avatar, Box, Heading, Text, Flex } from "@chakra-ui/react";
+import { Avatar, Box, Heading, Text, Flex, Spinner } from "@chakra-ui/react";
 import { ButtonLogout, ButtonUserProfile } from "../Button";
 import logout from "../../assets/logout.svg";
+import { useUser } from "../../context/UserContext";
+import { useUsersById } from "../../queries/useUsers";
+import { useParams } from "react-router-dom";
 
 const Sidebar = () => {
+  const { id } = useParams();
+  const { data: usuario } = useUsersById(Number(id));
+  console.log(usuario)
+  const { user } = useUser();
+  console.log(user);
+
   return (
     <Box p="1rem 1.5rem">
       <Heading id="user-profile-settings" as="h2" fontSize="24px">
@@ -21,7 +30,7 @@ const Sidebar = () => {
           <Flex direction="column" alignItems="center" gap="8px">
             <Avatar size="xl" />
             <Text as="p" fontWeight="500">
-              Jane Doe
+              {user ? user.username : "Nome não disponível"}
             </Text>
           </Flex>
           <ButtonUserProfile href="/home/userprofile" buttonName="Edit User" />
