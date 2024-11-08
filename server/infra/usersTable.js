@@ -17,8 +17,9 @@ class usersTable {
                 birthplace VARCHAR(100) NOT NULL,
                 email VARCHAR(100) NOT NULL UNIQUE,
                 password_hash VARCHAR(255) NOT NULL,
+                terms_accepted BOOLEAN NOT NULL DEFAULT TRUE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
                 deleted_at TIMESTAMP NULL DEFAULT NULL
             );
         

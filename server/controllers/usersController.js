@@ -20,7 +20,7 @@ class usersController {
       const user = await usersModel.findUserByEmail(email);
 
       if (!user) {
-        return res.status(400).json({ error: "Usuário não encontrado" });
+        return res.status(400).json({ error: "User not found" });
       }
 
       const isPasswordValid = await bcrypt.compare(
@@ -29,7 +29,7 @@ class usersController {
       );
 
       if (!isPasswordValid) {
-        return res.status(400).json({ error: "Senha incorreta" });
+        return res.status(400).json({ error: "Wrong password" });
       }
 
       const token = jwt.sign(
@@ -39,13 +39,13 @@ class usersController {
       );
 
       return res.status(200).json({
-        message: "Login bem-sucedido",
+        message: "Successful Login",
         user: { id: user.id, username: user.username, email: user.email }, // Dados do usuário
         token: token, // Token JWT gerado
       });
     } catch (error) {
-      console.error("Erro ao realizar login:", error.message);
-      res.status(500).json({ error: "Erro interno ao realizar login" });
+      console.error("Login error:", error.message);
+      res.status(500).json({ error: "Internal error on login" });
     }
   }
 
@@ -65,7 +65,7 @@ class usersController {
       if (user) {
         res.status(200).json(user);
       } else {
-        res.status(404).json({ error: "Usuário não encontrado" });
+        res.status(404).json({ error: "User not found" });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });

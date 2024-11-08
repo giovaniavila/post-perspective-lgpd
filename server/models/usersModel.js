@@ -13,16 +13,7 @@ class usersModel {
     });
   }
 
-  findUserByEmail(email) {
-    return new Promise((resolve, reject) => {
-      const sql = "SELECT * FROM users WHERE email = ?";
-      connection.query(sql, [email], (error, results) => {
-        if (error) return reject(error);
-        resolve(results[0]);
-      });
-    });
-  }
-
+  
   validatePassword(plainPassword, hashedPassword) {
     return bcrypt.compare(plainPassword, hashedPassword);
   }
@@ -33,7 +24,7 @@ class usersModel {
 
       const sql = `
         INSERT INTO USERS 
-          (username, full_name, admin, profession, birthplace, email, password_hash, created_at)
+          (username, full_name, admin, profession, birthplace, email, password_hash, terms_accepted, created_at)
         VALUES (?, ?, ?, ?, ?, ?, ?, NOW());
       `;
 
@@ -45,23 +36,32 @@ class usersModel {
         newUser.birthplace,
         newUser.email,
         hashedPassword,
+        newUser.terms_accpeted
       ];
 
       return this.executeQuery(sql, params);
+
     } catch (error) {
-      console.error("Erro ao criar usuário:", error.message);
-      throw new Error("Erro ao criar usuário: " + error.message);
+      console.error("Error creating user: ", error.message);
+      throw new Error("Error creating user: " + error.message);
     }
   }
+
   readUser() {
-    const sql = "SELECT * FROM USERS";
+    const sql = "SELECT * FROM users";
 
     return this.executeQuery(sql);
   }
 
   readUserById(id) {
-    const sql = "SELECT * FROM USERS WHERE id = ?";
+    const sql = "SELECT * FROM users WHERE id = ?";
     return this.executeQuery(sql, [id]);
+  }
+
+  readUserByEmail(email) {
+    const sql = "SELECT * FROM users WHERE email = ?";
+
+    return this.executeQuery(sql, [email])
   }
 
   updateUser(updatedUsers, id) {
@@ -74,6 +74,7 @@ class usersModel {
         birthplace = ?, 
         email = ?, 
         password_hash = ?, 
+        terms_accepted = ?,
         updated_at = NOW()
       WHERE id = ? ;
     `;
@@ -86,6 +87,7 @@ class usersModel {
       updatedUsers.birthplace,
       updatedUsers.email,
       updatedUsers.password_hash,
+      updatedUsers.terms_accpeted,
       id,
     ];
 
@@ -95,16 +97,8 @@ class usersModel {
 
   deleteUser(id) {
     const sql = `
-        UPDATE USERS SET 
-          username = 'removed', 
-          full_name = 'removed', 
-          admin = 0, 
-          profession = 'removed', 
-          birthplace = 'removed', 
-          email = 'removed', 
-          password_hash = 'removed', 
-          deleted_at = NOW()
-        WHERE id = ? ;`;
+        
+      DELETE FROM users WHERE id = ? ;`;
 
     return this.executeQuery(sql, id);
   }
