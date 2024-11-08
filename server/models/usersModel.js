@@ -19,9 +19,17 @@ class usersModel {
 
   createUser(newUser) {
     const sql = `
-      INSERT INTO USERS 
-        (username, full_name, admin, profession, birthplace, email, password_hash, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, NOW());
+      INSERT INTO users 
+        (username, 
+        full_name, 
+        admin, 
+        profession, 
+        birthplace, 
+        email, 
+        password_hash, 
+        terms_accepted, 
+        created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW()); 
       `;
     
     const params = [
@@ -31,6 +39,7 @@ class usersModel {
       newUser.profession,
       newUser.birthplace,
       newUser.email,
+      newUser.terms_accepted,
       newUser.password_hash  
     ];
 
@@ -39,7 +48,7 @@ class usersModel {
   }
 
   readUser() {
-    const sql = "SELECT * FROM USERS";
+    const sql = "SELECT * FROM users";
       
     return this.executeQuery(sql);
   }
@@ -55,11 +64,11 @@ class usersModel {
           profession, 
           birthplace, 
           email, 
+          terms_accepted,
           created_at, 
           updated_at, 
           deleted_at
-        FROM users 
-        WHERE id = ?;
+        FROM users WHERE id = ?;
       `;
       
     return this.executeQuery(sql, id);
@@ -67,7 +76,7 @@ class usersModel {
 
   updateUser(updatedUsers, id) {
     const sql = `
-      UPDATE USERS SET 
+      UPDATE users SET 
         username = ?, 
         full_name = ?, 
         admin = ?, 
@@ -75,6 +84,7 @@ class usersModel {
         birthplace = ?, 
         email = ?, 
         password_hash = ?, 
+        terms_accepted,
         updated_at = NOW()
       WHERE id = ? ;
     `;
@@ -87,6 +97,7 @@ class usersModel {
       updatedUsers.birthplace,
       updatedUsers.email,
       updatedUsers.password_hash,
+      updatedUsers.terms_accepted,
       id
     ];
 
@@ -95,16 +106,7 @@ class usersModel {
 
   deleteUser(id) {
     const sql = `
-        UPDATE USERS SET 
-          username = 'removed', 
-          full_name = 'removed', 
-          admin = 0, 
-          profession = 'removed', 
-          birthplace = 'removed', 
-          email = 'removed', 
-          password_hash = 'removed', 
-          deleted_at = NOW()
-        WHERE id = ? ;`
+      DELETE FROM users WHERE id = ? ;`
 
     return this.executeQuery(sql, id)
 
