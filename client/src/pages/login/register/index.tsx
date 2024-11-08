@@ -20,9 +20,9 @@ export default function Register({ setIsRegistering }: RegisterProps) {
   const { mutate } = useCreateUser();
 
   const onSubmit: SubmitHandler<UserProps> = async (data) => {
-    const userData: UserProps & { role: "user" } = {
+    const userData: UserProps & { admin: false } = {
       ...data,
-      role: "user",
+      admin: false,
     };
     mutate(userData);
   };
@@ -36,19 +36,21 @@ export default function Register({ setIsRegistering }: RegisterProps) {
   return (
     <Flex flexDirection="column" gap="20px" paddingTop="1.5rem">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={!!errors.name} mb="1rem">
-          <FormLabel htmlFor="userName">Name</FormLabel>
+        <FormControl isInvalid={!!errors.full_name} mb="1rem">
+          <FormLabel htmlFor="full_name">Name</FormLabel>
           <Input
             type="text"
             h="3.125rem"
             fontSize="0.875rem"
-            id="userName"
+            id="full_name"
             color="gray.400"
-            {...register("name", {
+            {...register("full_name", {
               required: "O preenchimento do campo é obrigatório",
             })}
           />
-          {errors.name && <Box textColor="red.500">{errors.name.message}</Box>}
+          {errors.full_name && (
+            <Box textColor="red.500">{errors.full_name.message}</Box>
+          )}
         </FormControl>
 
         <FormControl isInvalid={!!errors.username} mb="1rem">

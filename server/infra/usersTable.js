@@ -1,9 +1,10 @@
-class usersTable {
+const bcrypt = require("bcryptjs");
 
-    init(connection) {
-        this.connection = connection;
-        this.createTableUsers();
-    }
+class usersTable {
+  init(connection) {
+    this.connection = connection;
+    this.createTableUsers();
+  }
 
     createTableUsers(){
         const sql = `
@@ -22,18 +23,17 @@ class usersTable {
                 deleted_at TIMESTAMP NULL DEFAULT NULL
             );
         
-        `
+        `;
 
-        this.connection.query(sql, (error) => {
-            if (error) {
-                console.log("Error creating Users table: ", error);
-                return;
-            } else {
-                console.log("Users table created successfully.");
-            }
-        });
-    }
-
+    this.connection.query(sql, (error) => {
+      if (error) {
+        console.log("Error creating Users table: ", error);
+        return;
+      } else {
+        console.log("Users table created successfully.");
+      }
+    });
+  }
 }
 
 module.exports = new usersTable();

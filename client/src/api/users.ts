@@ -6,6 +6,11 @@ export const getUsers = async (): Promise<UserProps[]> => {
   return response.data;
 };
 
+export const getUserById = async(userId: number): Promise<UserProps> => { 
+  const response = await axios.get(`http://localhost:3000/users/${userId}`)
+  return response.data
+}
+
 export const postUser = async (newUser: UserProps): Promise<UserProps> => {
   const response = await axios.post("http://localhost:3000/users", newUser, {
     headers: {
@@ -34,3 +39,4 @@ export const editUser = async (
   );
   return response.data;
 };
+
