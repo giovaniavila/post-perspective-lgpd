@@ -1,9 +1,9 @@
 export interface UserProps {
-  role: "user";
-  name: string;
-  email: string;
+  admin: false;
+  username: string;
+  full_name: string;
   profession: string;
   password_hash: string;
   birthplace: string;
-  username: string;
+  email: string;
 }

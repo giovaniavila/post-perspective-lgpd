@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { getPostById } from "./postData";
+import { AddComment } from "./comment/AddComment";
+import CardComment from "../../components/CardComment";
 
 export default function PostSection() {
   const { id } = useParams();
@@ -62,51 +64,9 @@ export default function PostSection() {
         <Heading as="h2" fontSize="xl">
           Comments
         </Heading>
-        {post.comments.map((comment) => (
-          <Box
-            key={post.id}
-            p="1rem"
-            borderWidth="1px"
-            borderRadius="md"
-            w="31.25rem"
-            maxW="50vw"
-            overflowY="auto"
-          >
-            <Flex justifyContent="space-between" direction="column" mb="10px">
-              <Text fontWeight="bold" fontSize="1.25rem">
-                {comment.user}
-              </Text>
-              <Text fontWeight="semibold">{comment.occupation}</Text>
-            </Flex>
-            <Text color="gray.500">{comment.text}</Text>
-          </Box>
-        ))}
+        <CardComment />
       </VStack>
-      <Box mt="2rem">
-        <Heading as="h3" fontSize="lg" mb="1rem">
-          Add a Comment
-        </Heading>
-        <Textarea
-          placeholder="Write your comment..."
-          size="sm"
-          mb="1rem"
-          borderRadius="5px"
-          _focus={{
-            borderColor: "#FFD66D",
-            boxShadow: "0 0 0 1px #FFD66D",
-          }}
-        />
-        <Button
-          backgroundColor="yellow.500"
-          color="white"
-          _hover={{
-            filter: "brightness(0.7)",
-            transition: ".3s",
-          }}
-        >
-          Submit
-        </Button>
-      </Box>
+      <AddComment />
     </Box>
   );
 }
