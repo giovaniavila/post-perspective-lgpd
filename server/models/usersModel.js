@@ -84,7 +84,8 @@ class usersModel {
       id,
     ];
 
-    return this.executeQuery(sql, [params, id]);
+    return this.executeQuery(sql, params)
+
   }
 
   deleteUser(id) {
