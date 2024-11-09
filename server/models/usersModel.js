@@ -1,4 +1,5 @@
 const connection = require("../infra/connection");
+const connection2 = require("../infra/connection2");
 const bcrypt = require("bcryptjs");
 
 class usersModel {
@@ -13,6 +14,16 @@ class usersModel {
     });
   }
 
+  executeQueryBackup(sql, parametros = "") {
+    return new Promise((resolve, reject) => {
+      connection2.query(sql, parametros, (error, answer) => {
+        if (error) {
+          return reject(error);
+        }
+        return resolve(answer);
+      });
+    });
+  }
   
   validatePassword(plainPassword, hashedPassword) {
     return bcrypt.compare(plainPassword, hashedPassword);
@@ -22,10 +33,8 @@ class usersModel {
     try {
       const hashedPassword = await bcrypt.hash(newUser.password_hash, 10);
 
-      const sql = `
-        INSERT INTO USERS 
-          (username, full_name, admin, profession, birthplace, email, password_hash, terms_accepted, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, NOW());
+      const sql = `INSERT INTO USERS (username, full_name, admin, profession, birthplace, email, password_hash, terms_accepted, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, NOW()); 
       `;
 
       const params = [
@@ -96,11 +105,22 @@ class usersModel {
   }
 
   deleteUser(id) {
-    const sql = `
-        
-      DELETE FROM users WHERE id = ? ;`;
+    const sql = `DELETE FROM users WHERE id = ? ;`;
+
+    this.backupUser(id)
 
     return this.executeQuery(sql, id);
+  }
+  
+  backupUser(id) {
+    const sql = `
+      INSERT INTO users_backup 
+        (id, deleted_at)
+      VALUES (?, NOW()); 
+    `;
+
+    return this.executeQueryBackup(sql, id)
+
   }
 }
 
