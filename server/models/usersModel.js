@@ -34,7 +34,7 @@ class usersModel {
       const hashedPassword = await bcrypt.hash(newUser.password_hash, 10);
 
       const sql = `INSERT INTO USERS (username, full_name, admin, profession, birthplace, email, password_hash, terms_accepted, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, NOW()); 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW()); 
       `;
 
       const params = [
@@ -45,7 +45,7 @@ class usersModel {
         newUser.birthplace,
         newUser.email,
         hashedPassword,
-        newUser.terms_accpeted
+        newUser.terms_accepted
       ];
 
       return this.executeQuery(sql, params);
