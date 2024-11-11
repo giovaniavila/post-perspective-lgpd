@@ -1,16 +1,14 @@
 import { Avatar, Box, Heading, Text, Flex, Spinner } from "@chakra-ui/react";
 import { ButtonLogout, ButtonUserProfile } from "../Button";
 import logout from "../../assets/logout.svg";
-import { useUser } from "../../context/UserContext";
 import { useUsersById } from "../../queries/useUsers";
-import { useParams } from "react-router-dom";
+import { getUserIdFromToken } from "../../hooks/useGetToken";
 
 const Sidebar = () => {
-  const { id } = useParams();
-  const { data: usuario } = useUsersById(Number(id));
-  console.log(usuario)
-  const { user } = useUser();
-  console.log(user);
+  const userId = getUserIdFromToken();
+  console.log("id da porra do usdasdsauario", userId);
+
+  const { data, isLoading } = useUsersById(userId);
 
   return (
     <Box p="1rem 1.5rem">
@@ -30,7 +28,13 @@ const Sidebar = () => {
           <Flex direction="column" alignItems="center" gap="8px">
             <Avatar size="xl" />
             <Text as="p" fontWeight="500">
-              {user ? user.username : "Nome não disponível"}
+              {isLoading ? (
+                <Spinner size="xl" />
+              ) : (
+                <Text as="p" fontWeight="500">
+                  {data[0]?.username}
+                </Text>
+              )}
             </Text>
           </Flex>
           <ButtonUserProfile href="/home/userprofile" buttonName="Edit User" />

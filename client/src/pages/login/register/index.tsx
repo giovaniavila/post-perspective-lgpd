@@ -1,5 +1,6 @@
 import {
   Box,
+  Checkbox,
   Flex,
   FormControl,
   FormLabel,
@@ -11,6 +12,7 @@ import ModalTermsAndConditions from "../../../components/Modals";
 import { UserProps } from "../../../interface/users";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useCreateUser } from "../../../mutations/users";
+import { useState } from "react";
 
 interface RegisterProps {
   setIsRegistering: (value: boolean) => void;
@@ -18,6 +20,7 @@ interface RegisterProps {
 
 export default function Register({ setIsRegistering }: RegisterProps) {
   const { mutate } = useCreateUser();
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const onSubmit: SubmitHandler<UserProps> = async (data) => {
     const userData: UserProps & { admin: false } = {
@@ -142,8 +145,28 @@ export default function Register({ setIsRegistering }: RegisterProps) {
           )}
         </FormControl>
 
-        <Flex alignItems="center" justifyContent="space-between" mb="1rem">
-          <ModalTermsAndConditions />
+        <Flex alignItems="center" justifyContent="space-between" mb="1.5rem">
+          <Flex alignItems="start" gap="5px">
+            <Box alignSelf="center">
+              <FormControl isInvalid={!!errors.terms_accepted}>
+                <Checkbox
+                  id="acceptedTerms"
+                  {...register("terms_accepted", {
+                    required: "Você deve aceitar os termos para se registrar",
+                  })}
+                  isChecked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                ></Checkbox>
+                {errors.terms_accepted && (
+                  <Box textColor="red.500" position="absolute" w="500px">
+                    {errors.terms_accepted.message}
+                  </Box>
+                )}
+              </FormControl>
+            </Box>
+            <ModalTermsAndConditions />
+          </Flex>
+
           <Link
             fontWeight="600"
             color="yellow.500"

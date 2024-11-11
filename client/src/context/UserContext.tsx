@@ -1,7 +1,14 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import { UserProps } from "../interface/users";
+import { useUsersById } from "../queries/useUsers";
+import { getUserIdFromToken } from "../hooks/useGetToken";
 
-// Defina o contexto
 interface UserContextType {
   user: UserProps | null;
   setUser: React.Dispatch<React.SetStateAction<UserProps | null>>;
@@ -9,18 +16,27 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-// Provedor de contexto
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProps | null>(null);
 
+  const userId = getUserIdFromToken();
+  console.log(userId);
+
+  const { data: userData, isLoading } = useUsersById(userId);
+
+  useEffect(() => {
+    if (userData) {
+      setUser(userData); 
+    }
+  }, [userData]);
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      {children}
+      {isLoading ? <div>Carregando...</div> : children}
     </UserContext.Provider>
   );
 };
 
-// Hook customizado para acessar o contexto
 export const useUser = (): UserContextType => {
   const context = useContext(UserContext);
   if (!context) {

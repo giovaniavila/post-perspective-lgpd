@@ -16,6 +16,8 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import { GoAlertFill } from "react-icons/go";
+import { getUserIdFromToken } from "../../hooks/useGetToken";
+import { useDeleteUser } from "../../mutations/users";
 
 export default function ModalTermsAndConditions() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -252,6 +254,18 @@ export default function ModalTermsAndConditions() {
 export function ModalDeleteUser() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const userId = getUserIdFromToken();
+
+  const { mutate: deleteUser } = useDeleteUser();
+
+  function handleDeleteAccount() {
+    if (userId) {
+      deleteUser(userId); // Chama a mutação de exclusão
+    } else {
+      console.error("User ID is undefined");
+    }
+  }
+
   return (
     <>
       <Text
@@ -269,7 +283,7 @@ export function ModalDeleteUser() {
         gap="10px"
         alignItems="center"
       >
-        <GoAlertFill/>
+        <GoAlertFill />
         Solicitar exclusâo da conta
       </Text>
 
@@ -304,7 +318,7 @@ export function ModalDeleteUser() {
                 <Text id="coleta-dados">
                   Você está prestes a solicitar a exclusão dos seus dados da
                   conta. É importante que você esteja ciente das seguintes
-                  consequências:
+                  consequências
                   <UnorderedList
                     display="flex"
                     flexDirection="column"
@@ -344,13 +358,13 @@ export function ModalDeleteUser() {
           </ModalBody>
           <ModalFooter>
             <Button
-              onClick={onClose}
               bgColor="red.500"
               color="white"
               _hover={{
                 bgColor: "#C53030",
-                filer: "brightness(0.8)",
+                filter: "brightness(0.8)",
               }}
+              onClick={handleDeleteAccount}
             >
               Excluir conta
             </Button>
