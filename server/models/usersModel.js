@@ -74,35 +74,61 @@ class usersModel {
   }
 
   updateUser(updatedUsers, id) {
+    // Array para armazenar partes da consulta SQL
+    const fields = [];
+    const params = [];
+
+    // Adiciona os campos a serem atualizados dinamicamente
+    if (updatedUsers.username !== undefined) {
+        fields.push('username = ?');
+        params.push(updatedUsers.username);
+    }
+    if (updatedUsers.full_name !== undefined) {
+        fields.push('full_name = ?');
+        params.push(updatedUsers.full_name);
+    }
+    if (updatedUsers.admin !== undefined) {
+        fields.push('admin = ?');
+        params.push(updatedUsers.admin);
+    }
+    if (updatedUsers.profession !== undefined) {
+        fields.push('profession = ?');
+        params.push(updatedUsers.profession);
+    }
+    if (updatedUsers.birthplace !== undefined) {
+        fields.push('birthplace = ?');
+        params.push(updatedUsers.birthplace);
+    }
+    if (updatedUsers.email !== undefined) {
+        fields.push('email = ?');
+        params.push(updatedUsers.email);
+    }
+    if (updatedUsers.password_hash !== undefined) {
+        fields.push('password_hash = ?');
+        params.push(updatedUsers.password_hash);
+    }
+    if (updatedUsers.terms_accepted !== undefined) {
+        fields.push('terms_accepted = ?');
+        params.push(updatedUsers.terms_accepted);
+    }
+
+    // Adiciona a atualização do campo `updated_at`
+    fields.push('updated_at = NOW()');
+
+    // Monta a consulta SQL dinamicamente
     const sql = `
-      UPDATE USERS SET 
-        username = ?, 
-        full_name = ?, 
-        admin = ?, 
-        profession = ?, 
-        birthplace = ?, 
-        email = ?, 
-        password_hash = ?, 
-        terms_accepted = ?,
-        updated_at = NOW()
-      WHERE id = ? ;
+      UPDATE USERS 
+      SET ${fields.join(', ')}
+      WHERE id = ?;
     `;
+    
+    // Adiciona o ID ao final dos parâmetros
+    params.push(id);
 
-    const params = [
-      updatedUsers.username,
-      updatedUsers.full_name,
-      updatedUsers.admin,
-      updatedUsers.profession,
-      updatedUsers.birthplace,
-      updatedUsers.email,
-      updatedUsers.password_hash,
-      updatedUsers.terms_accpeted,
-      id,
-    ];
+    // Executa a consulta
+    return this.executeQuery(sql, params);
+}
 
-    return this.executeQuery(sql, params)
-
-  }
 
   deleteUser(id) {
     const sql = `DELETE FROM users WHERE id = ? ;`;
