@@ -15,9 +15,11 @@ class usersController {
 
   async login(req, res) {
     const { email, password } = req.body;
+    console.log("Login attempt:", { email, password });
 
     try {
       const user = await usersModel.findUserByEmail(email);
+      console.log("User found:", user);
 
       if (!user) {
         return res.status(400).json({ error: "User not found" });

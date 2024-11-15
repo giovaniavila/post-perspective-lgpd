@@ -73,6 +73,16 @@ class usersModel {
     return this.executeQuery(sql, [email])
   }
 
+  findUserByEmail(email) {
+    return new Promise((resolve, reject) => {
+      const sql = "SELECT * FROM users WHERE email = ?";
+      connection.query(sql, [email], (error, results) => {
+        if (error) return reject(error);
+        resolve(results[0]);
+      });
+    });
+  }
+
   updateUser(updatedUsers, id) {
     // Array para armazenar partes da consulta SQL
     const fields = [];

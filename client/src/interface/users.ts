@@ -6,4 +6,5 @@ export interface UserProps {
   password_hash: string;
   birthplace: string;
   email: string;
+  terms_accepted: boolean;
 }

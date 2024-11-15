@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserProps } from "../interface/users";
-import { postUser } from "../api/users";
+import { deleteUser, editUser, postUser } from "../api/users";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 export const useCreateUser = () => {
   const queryClient = useQueryClient();
@@ -16,6 +17,46 @@ export const useCreateUser = () => {
     },
     onError: () => {
       toast.error("Houve um erro ao criar o usuário", {
+        position: "bottom-left",
+      });
+    },
+  });
+};
+
+export const useDeleteUser = () => {
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: (userId: number) => deleteUser(userId),
+    onSuccess: () => {
+      toast.success("Usuário deletado com sucesso!", {
+        position: "bottom-left",
+      });
+      navigate("/");
+    },
+    onError: () => {
+      toast.error("Tivemos problemas ao deletar o usuário :(", {
+        position: "bottom-left",
+      });
+    },
+  });
+};
+
+export const useEditUser = () => {
+  return useMutation({
+    mutationFn: ({
+      userId,
+      updatedUser,
+    }: {
+      userId: number;
+      updatedUser: UserProps;
+    }) => editUser(userId, updatedUser),
+    onSuccess: () => {
+      toast.success("Usuário editado com sucesso!", {
+        position: "bottom-left",
+      });
+    },
+    onError: () => {
+      toast.error("Erro ao editar o usuário!", {
         position: "bottom-left",
       });
     },

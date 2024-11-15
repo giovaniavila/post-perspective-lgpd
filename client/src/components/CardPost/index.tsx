@@ -42,7 +42,7 @@ export default function CardPost({ id, title, content }: CardPostProps) {
       </Text>
       <Flex gap="10px">
         <Image src={comments} />
-        <Text color="gray.500">3 comments</Text>
+        <Text color="gray.500">See comments</Text>
       </Flex>
     </Flex>
   );
