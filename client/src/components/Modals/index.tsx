@@ -306,7 +306,7 @@ export function ModalDeleteUser() {
               backgroundColor: "#C53030",
             },
             "&::-webkit-scrollbar-track": {
-              backgroundColor: "#C53030.",
+              backgroundColor: "",
             },
           }}
         >

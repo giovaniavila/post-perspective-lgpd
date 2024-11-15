@@ -54,14 +54,14 @@ export function ModalRequestData() {
               width: "8px",
             },
             "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#d9b84d",
+              backgroundColor: "#0d47a1",
               borderRadius: "4px",
             },
             "&::-webkit-scrollbar-thumb:hover": {
-              backgroundColor: "#d9b84d",
+              backgroundColor: "#0d47a1",
             },
             "&::-webkit-scrollbar-track": {
-              backgroundColor: "#d9b84d",
+              backgroundColor: "",
             },
           }}
         >
