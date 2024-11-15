@@ -87,12 +87,12 @@ export function LoginForm({ setIsRegistering }: LoginFormProps) {
           />
         </FormControl>
         <Flex justifyContent="space-between" marginTop="0.8125rem">
-          <Checkbox defaultChecked colorScheme="yellow" size="sm">
+          <Checkbox defaultChecked colorScheme="blue" size="sm">
             Do you want to save the password?
           </Checkbox>
           <Link
             fontWeight="600"
-            color="yellow.500"
+            color="blue.900"
             fontSize="0.8125rem"
             onClick={() => setIsRegistering(true)}
           >

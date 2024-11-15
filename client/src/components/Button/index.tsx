@@ -33,7 +33,7 @@ export const Button = ({ text, ...rest }: ButtonProps) => {
     <ChakraButton
       marginTop="5px"
       borderRadius="5px"
-      backgroundColor="yellow.500"
+      backgroundColor="blue.900"
       color="white"
       {...rest}
       _hover={{ filter: "brightness(0.8)", transition: ".3s" }}
@@ -57,7 +57,7 @@ export const ButtonLink = ({
       backgroundColor="transparent"
       color="text.default"
       fontWeight="500"
-      _hover={{ color: "yellow.500" }}
+      _hover={{ color: "blue.900" }}
     >
       <Flex alignItems="center" gap="10px">
         {buttonName}
@@ -107,10 +107,10 @@ export const ButtonUserProfile = ({
       to={href}
       w="20vw"
       color="white"
-      bgColor="yellow.500"
+      bgColor="blue.900"
       borderRadius="5px"
       _hover={{
-        bgColor: "yellow.600",
+        bgColor: "blue.800",
         filter: "brigthness(0.8)",
       }}
     >

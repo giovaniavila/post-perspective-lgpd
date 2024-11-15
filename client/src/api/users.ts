@@ -33,7 +33,7 @@ export const editUser = async (
     updatedUser,
     {
       headers: {
-        "Content-type": "application./json",
+        "Content-type": "application/json",
       },
     }
   );

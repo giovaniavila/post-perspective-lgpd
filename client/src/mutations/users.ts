@@ -42,6 +42,7 @@ export const useDeleteUser = () => {
 };
 
 export const useEditUser = () => {
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({
       userId,
@@ -54,6 +55,7 @@ export const useEditUser = () => {
       toast.success("Usuário editado com sucesso!", {
         position: "bottom-left",
       });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: () => {
       toast.error("Erro ao editar o usuário!", {

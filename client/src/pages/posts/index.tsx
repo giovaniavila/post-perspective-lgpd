@@ -37,17 +37,17 @@ export default function PostSection() {
           background: "transparent",
         },
         "&::-webkit-scrollbar-thumb": {
-          backgroundColor: "yellow.500",
+          backgroundColor: "blue.900",
           borderRadius: "10px",
         },
         "&::-webkit-scrollbar-thumb:hover": {
-          backgroundColor: "yellow.400",
+          backgroundColor: "blue.800",
           cursor: "pointer",
         },
       }}
     >
-      <Heading display="flex" alignItems="center" gap="5px" as="h1" mb="1rem">
-        <Box w="10px" h="30px" bg="yellow.500" />
+      <Heading display="flex" alignItems="baseline" gap="5px" as="h1" mb="1rem">
+        <Box w="15px" h="15px" borderRadius="50%" bg="blue.900" />
         {post.title}
       </Heading>
       <Text

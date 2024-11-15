@@ -24,7 +24,7 @@ export const AddComment = () => {
         }}
       />
       <Button
-        backgroundColor="yellow.500"
+        backgroundColor="blue.900"
         color="white"
         onClick={postComment}
         _hover={{
