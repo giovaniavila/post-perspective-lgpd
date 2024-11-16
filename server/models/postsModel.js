@@ -1,6 +1,9 @@
 const connection = require('../infra/connection');
 
 class postsModel {
+
+    // this function executes all SQL queries. create a method, writes the query and call it inside the method
+    // passing the parameters it needs.
     executeQuery(sql, parametros = "") {
 
         return new Promise((resolve, reject) => {
@@ -18,7 +21,7 @@ class postsModel {
 
     createPost(newPost) {
         const sql = `
-          INSERT INTO POSTS 
+          INSERT INTO posts 
             (title, content, created_at)
           VALUES (?, ?, NOW());
         `;
@@ -32,14 +35,14 @@ class postsModel {
       }
     
       readPosts() {
-        const sql = "SELECT * FROM POSTS";
+        const sql = "SELECT * FROM posts";
           
         return this.executeQuery(sql);
       }
     
       updatePost(updatedPost, id) {
         const sql = `
-          UPDATE POSTS SET 
+          UPDATE posts SET 
             title = ?, 
             content = ?, 
             updated_at = NOW()
@@ -56,7 +59,7 @@ class postsModel {
       }
     
       deletePost(id) {
-        const sql = "DELETE FROM POSTS WHERE id = ? ;";
+        const sql = "DELETE FROM posts WHERE id = ? ;";
     
         return this.executeQuery(sql, id);
       }

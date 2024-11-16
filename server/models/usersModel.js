@@ -3,6 +3,9 @@ const connection2 = require("../infra/connection2");
 const bcrypt = require("bcryptjs");
 
 class usersModel {
+
+  // this function executes all SQL queries. create a method, writes the query and call it inside the method
+  // passing the parameters it needs.
   executeQuery(sql, parametros = "") {
     return new Promise((resolve, reject) => {
       connection.query(sql, parametros, (error, answer) => {
@@ -14,6 +17,7 @@ class usersModel {
     });
   }
 
+  // this function executes all SQL queries related to the backup table or connection2
   executeQueryBackup(sql, parametros = "") {
     return new Promise((resolve, reject) => {
       connection2.query(sql, parametros, (error, answer) => {
@@ -33,7 +37,7 @@ class usersModel {
     try {
       const hashedPassword = await bcrypt.hash(newUser.password_hash, 10);
 
-      const sql = `INSERT INTO USERS (username, full_name, admin, profession, birthplace, email, password_hash, terms_accepted, created_at)
+      const sql = `INSERT INTO users (username, full_name, admin, profession, birthplace, email, password_hash, terms_accepted, created_at)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW()); 
       `;
 
