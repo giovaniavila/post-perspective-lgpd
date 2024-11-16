@@ -32,13 +32,21 @@ class commentsModel {
     
         return this.executeQuery(sql, params);
       }
-    
+      
+      // return all comments in the "comments" table
       readComments() {
         const sql = "SELECT * FROM COMMENTS";
           
         return this.executeQuery(sql);
       }
     
+      //return all comments that has a specific post_id
+      readCommentsByPostID(post_id) {
+        const sql = "SELECT * FROM COMMENTS WHERE post_id = ?";
+          
+        return this.executeQuery(sql,[post_id]);
+      }
+
       updateComment(updatedComment, id) {
         const sql = `
           UPDATE COMMENTS SET 
@@ -54,6 +62,8 @@ class commentsModel {
     
         return this.executeQuery(sql, params);
       }
+
+      
     
       deleteComment(id) {
         const sql = "DELETE FROM COMMENTS WHERE id = ? ;";

@@ -56,23 +56,27 @@ class usersModel {
     }
   }
 
+  //returns all of the users
   readUser() {
     const sql = "SELECT * FROM users";
 
     return this.executeQuery(sql);
   }
 
+  //returns ONE user, looking for it's id
   readUserById(id) {
     const sql = "SELECT * FROM users WHERE id = ?";
     return this.executeQuery(sql, [id]);
   }
 
+  //returns ONE user, by it's email attribute
   readUserByEmail(email) {
     const sql = "SELECT * FROM users WHERE email = ?";
 
     return this.executeQuery(sql, [email])
   }
 
+  //does the same that 'readUserByEmail'
   findUserByEmail(email) {
     return new Promise((resolve, reject) => {
       const sql = "SELECT * FROM users WHERE email = ?";
@@ -83,63 +87,71 @@ class usersModel {
     });
   }
 
-  updateUser(updatedUsers, id) {
-    // Array para armazenar partes da consulta SQL
-    const fields = [];
-    const params = [];
+  //dynamically updates the user's attributes
+  async updateUser(updatedUsers, id) {
+    try {
+        // Array para armazenar partes da consulta SQL
+        const fields = [];
+        const params = [];
 
-    // Adiciona os campos a serem atualizados dinamicamente
-    if (updatedUsers.username !== undefined) {
-        fields.push('username = ?');
-        params.push(updatedUsers.username);
-    }
-    if (updatedUsers.full_name !== undefined) {
-        fields.push('full_name = ?');
-        params.push(updatedUsers.full_name);
-    }
-    if (updatedUsers.admin !== undefined) {
-        fields.push('admin = ?');
-        params.push(updatedUsers.admin);
-    }
-    if (updatedUsers.profession !== undefined) {
-        fields.push('profession = ?');
-        params.push(updatedUsers.profession);
-    }
-    if (updatedUsers.birthplace !== undefined) {
-        fields.push('birthplace = ?');
-        params.push(updatedUsers.birthplace);
-    }
-    if (updatedUsers.email !== undefined) {
-        fields.push('email = ?');
-        params.push(updatedUsers.email);
-    }
-    if (updatedUsers.password_hash !== undefined) {
-        fields.push('password_hash = ?');
-        params.push(updatedUsers.password_hash);
-    }
-    if (updatedUsers.terms_accepted !== undefined) {
-        fields.push('terms_accepted = ?');
-        params.push(updatedUsers.terms_accepted);
-    }
+        // Adiciona os campos a serem atualizados dinamicamente
+        if (updatedUsers.username !== undefined) {
+            fields.push('username = ?');
+            params.push(updatedUsers.username);
+        }
+        if (updatedUsers.full_name !== undefined) {
+            fields.push('full_name = ?');
+            params.push(updatedUsers.full_name);
+        }
+        if (updatedUsers.admin !== undefined) {
+            fields.push('admin = ?');
+            params.push(updatedUsers.admin);
+        }
+        if (updatedUsers.profession !== undefined) {
+            fields.push('profession = ?');
+            params.push(updatedUsers.profession);
+        }
+        if (updatedUsers.birthplace !== undefined) {
+            fields.push('birthplace = ?');
+            params.push(updatedUsers.birthplace);
+        }
+        if (updatedUsers.email !== undefined) {
+            fields.push('email = ?');
+            params.push(updatedUsers.email);
+        }
+        if (updatedUsers.password_hash !== undefined) {
+            // Hash da nova senha antes de atualizar
+            const hashedPassword = await bcrypt.hash(updatedUsers.password_hash, 10);
+            fields.push('password_hash = ?');
+            params.push(hashedPassword);
+        }
+        if (updatedUsers.terms_accepted !== undefined) {
+            fields.push('terms_accepted = ?');
+            params.push(updatedUsers.terms_accepted);
+        }
 
-    // Adiciona a atualização do campo `updated_at`
-    fields.push('updated_at = NOW()');
+        // Adiciona a atualização do campo `updated_at`
+        fields.push('updated_at = NOW()');
 
-    // Monta a consulta SQL dinamicamente
-    const sql = `
-      UPDATE USERS 
-      SET ${fields.join(', ')}
-      WHERE id = ?;
-    `;
-    
-    // Adiciona o ID ao final dos parâmetros
-    params.push(id);
+        // Monta a consulta SQL dinamicamente
+        const sql = `
+          UPDATE USERS 
+          SET ${fields.join(', ')}
+          WHERE id = ?;
+        `;
 
-    // Executa a consulta
-    return this.executeQuery(sql, params);
-}
+        // Adiciona o ID ao final dos parâmetros
+        params.push(id);
 
+        // Executa a consulta
+        return this.executeQuery(sql, params);
+    } catch (error) {
+        console.error("Error updating user: ", error.message);
+        throw new Error("Error updating user: " + error.message);
+    }
+  }
 
+  //deletes the user and calls the backupUser function
   deleteUser(id) {
     const sql = `DELETE FROM users WHERE id = ? ;`;
 
@@ -148,6 +160,7 @@ class usersModel {
     return this.executeQuery(sql, id);
   }
   
+  //saves the id and deleted_at attributes in a second table, within a second database
   backupUser(id) {
     const sql = `
       INSERT INTO users_backup 
