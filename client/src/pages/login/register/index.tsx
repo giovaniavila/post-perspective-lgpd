@@ -169,7 +169,7 @@ export default function Register({ setIsRegistering }: RegisterProps) {
 
           <Link
             fontWeight="600"
-            color="yellow.500"
+            color="blue.900"
             fontSize="0.8125rem"
             onClick={() => setIsRegistering(false)}
           >

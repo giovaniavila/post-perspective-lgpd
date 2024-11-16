@@ -15,12 +15,10 @@ export const getUserIdFromToken = () => {
       const decodedPayload = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
   
       // Converte a string em um objeto JSON
-      const parsedPayload = JSON.parse(decodedPayload);
-  
-      console.log("id do userasdasdasdasdasdas", parsedPayload.id); // Para ver o conteúdo do payload
+      const parsedPayload = JSON.parse(decodedPayload); 
+      // Para ver o conteúdo do payload
       return parsedPayload.id;
     } catch (error) {
-      console.error("Erro ao decodificar o token manualmente", error);
       return null;
     }
   };

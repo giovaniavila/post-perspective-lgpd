@@ -6,7 +6,6 @@ import { getUserIdFromToken } from "../../hooks/useGetToken";
 
 const Sidebar = () => {
   const userId = getUserIdFromToken();
-  console.log("id da porra do usdasdsauario", userId);
 
   const { data, isLoading } = useUsersById(userId);
 
@@ -37,7 +36,7 @@ const Sidebar = () => {
               )}
             </Text>
           </Flex>
-          <ButtonUserProfile href="/home/userprofile" buttonName="Edit User" />
+          <ButtonUserProfile href="/home/userprofile" buttonName="User Settings" />
         </Flex>
         <Box mt="2rem">
           <Heading as="h2" fontSize="20px">

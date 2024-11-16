@@ -20,7 +20,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<UserProps | null>(null);
 
   const userId = getUserIdFromToken();
-  console.log(userId);
 
   const { data: userData, isLoading } = useUsersById(userId);
 

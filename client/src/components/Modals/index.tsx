@@ -27,7 +27,7 @@ export default function ModalTermsAndConditions() {
       <Text
         _hover={{
           bgColor: "transparent",
-          color: "yellow.500",
+          color: "blue.900",
           cursor: "pointer",
         }}
         bgColor="transparent"
@@ -51,11 +51,11 @@ export default function ModalTermsAndConditions() {
               width: "8px",
             },
             "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "#D69E2E",
+              backgroundColor: "#0d47a1",
               borderRadius: "4px",
             },
             "&::-webkit-scrollbar-thumb:hover": {
-              backgroundColor: "#B7791F",
+              backgroundColor: "#0d47a1",
             },
             "&::-webkit-scrollbar-track": {
               backgroundColor: "#E2E8F0",
@@ -306,7 +306,7 @@ export function ModalDeleteUser() {
               backgroundColor: "#C53030",
             },
             "&::-webkit-scrollbar-track": {
-              backgroundColor: "#C53030.",
+              backgroundColor: "",
             },
           }}
         >
