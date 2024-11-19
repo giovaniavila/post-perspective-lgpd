@@ -21,6 +21,21 @@ class postsController {
         .catch((error) => res.status(400).json(error.message));
     }
 
+    async readById(req, res) {
+        const { id } = req.params;
+    
+        try {
+          const post = await postsModel.readPostByID(id);
+          if (post) {
+            res.status(200).json(post);
+          } else {
+            res.status(404).json({ error: "Post not found" });
+          }
+        } catch (error) {
+          res.status(500).json({ error: error.message });
+        }
+    }
+
     update (req, res) {
         const updatedPost = req.body;
         const { id } = req.params; 

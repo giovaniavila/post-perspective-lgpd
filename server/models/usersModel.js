@@ -1,5 +1,4 @@
 const connection = require("../infra/connection");
-const connection2 = require("../infra/connection2");
 const bcrypt = require("bcryptjs");
 
 class usersModel {
@@ -17,18 +16,6 @@ class usersModel {
     });
   }
 
-  // this function executes all SQL queries related to the backup table or connection2
-  executeQueryBackup(sql, parametros = "") {
-    return new Promise((resolve, reject) => {
-      connection2.query(sql, parametros, (error, answer) => {
-        if (error) {
-          return reject(error);
-        }
-        return resolve(answer);
-      });
-    });
-  }
-  
   validatePassword(plainPassword, hashedPassword) {
     return bcrypt.compare(plainPassword, hashedPassword);
   }
@@ -159,7 +146,7 @@ class usersModel {
   deleteUser(id) {
     const sql = `DELETE FROM users WHERE id = ? ;`;
 
-    this.backupUser(id)
+    // this.backupUser(id)
 
     return this.executeQuery(sql, id);
   }

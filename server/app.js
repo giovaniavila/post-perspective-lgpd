@@ -7,14 +7,13 @@ app.use(cors());
 require('dotenv').config();
 
 const connection = require("./infra/connection");
+
 const usersTable = require("./infra/usersTable");
 const postsTable = require("./infra/postsTable");
 const commentsTable = require("./infra/commentsTable");
 
-const connection2 = require("./infra/connection2");
-const usersBackupTable = require("./infra/usersBackupTable")
-
 const routes = require("./routes/index");
+
 routes(app, express);
 
 connection.connect((error) => {
@@ -25,7 +24,6 @@ connection.connect((error) => {
   console.log("Connected to the db");
 
   usersTable.init(connection);
-  usersBackupTable.init(connection2);
   postsTable.init(connection);
   commentsTable.init(connection);
 
