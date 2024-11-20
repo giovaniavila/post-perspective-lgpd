@@ -1,9 +1,22 @@
 import { Box, Heading, Textarea, Button } from "@chakra-ui/react";
 import usePostComment from "../../../hooks/usePostComment";
+import { getUserIdFromToken } from "../../../hooks/useGetToken";
+import { useParams } from "react-router-dom";
+import { UsePostById } from "../../../queries/usePosts";
 
 export const AddComment = () => {
-  const user_id = 15;
-  const post_id = 1;
+  const userId = getUserIdFromToken();
+  const user_id = userId;
+
+  const { id } = useParams();
+  const { data: PostByID } = UsePostById(Number(id));
+
+  if (!PostByID || PostByID.length === 0) {
+    console.error("Nenhum post encontrado");
+    return null; 
+  }
+  const post_id = PostByID[0]?.id;
+
   const { comment, setComment, postComment } = usePostComment(user_id, post_id);
 
   return (
