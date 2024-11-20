@@ -70,7 +70,7 @@ export default function PostSection() {
         <Heading as="h2" fontSize="xl">
           Comments
         </Heading>
-        {/* <CardComment /> */}
+         <CardComment /> 
       </VStack>
       <AddComment />
     </Box>

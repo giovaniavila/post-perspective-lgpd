@@ -6,9 +6,9 @@ export const getComments = async () => {
   return response.data();
 };
 
-export const getCommentsById = async (userId: number) => {
-  const response = await axios.get(`http://localhost:3000/comments/${userId}`);
-  return response.data();
+export const getCommentsByPostId = async (postId: number) => {
+  const response = await axios.get(`http://localhost:3000/comments/${postId}`);
+  return response.data;
 };
 
 export const postComment = async (
