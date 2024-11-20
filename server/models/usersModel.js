@@ -152,16 +152,6 @@ class usersModel {
   }
   
   //saves the id and deleted_at attributes in a second table, within a second database
-  backupUser(id) {
-    const sql = `
-      INSERT INTO users_backup 
-        (id, deleted_at)
-      VALUES (?, NOW()); 
-    `;
-
-    return this.executeQueryBackup(sql, id)
-
-  }
 }
 
 module.exports = new usersModel();

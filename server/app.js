@@ -3,8 +3,18 @@ const app = express();
 const port = 3000;
 const cors = require("cors");
 
-app.use(cors());
-require('dotenv').config();
+
+//comandos relacionados ao backup
+const cron = require('node-cron');
+const { createPeriodicBackup } = require('./backup/periodicBackup');
+const { periodicBackupInterval } = require('./backup/backupConfig');
+
+cron.schedule(periodicBackupInterval, () => {
+  console.log('Iniciando backup periódico...');
+  createPeriodicBackup();
+});
+//---------------------------------
+
 
 const connection = require("./infra/connection");
 
@@ -13,6 +23,9 @@ const postsTable = require("./infra/postsTable");
 const commentsTable = require("./infra/commentsTable");
 
 const routes = require("./routes/index");
+
+app.use(cors());
+require('dotenv').config();
 
 routes(app, express);
 

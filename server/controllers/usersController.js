@@ -1,6 +1,7 @@
 const usersModel = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { createEventBackup } = require("../backup/eventBackup");
 
 class usersController {
   async create(req, res) {
@@ -89,7 +90,7 @@ class usersController {
     const answer = usersModel.deleteUser(id);
 
     answer
-      .then((answerDelete) => res.status(200).json(answerDelete))
+      .then((answerDelete) => res.status(200).json(answerDelete), createEventBackup(`User with ID ${id} deleted`))
       .catch((error) => res.status(400).json(error.message));
   }
 }
