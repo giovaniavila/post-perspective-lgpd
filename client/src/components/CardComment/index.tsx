@@ -37,11 +37,24 @@ const CardComment = () => {
     );
   }
 
+  // Buscar todos os usuários de uma vez
+  const userIds = comments.map((comment) => comment.user_id);
+  const { data: users, isLoading: isUsersLoading } = useUsersById(userIds);
+
+  // Exibe um loader enquanto os dados dos usuários estão sendo carregados
+  if (isUsersLoading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Spinner />
+      </Box>
+    );
+  }
+
   return (
     <VStack align="start" spacing="1rem">
       {comments.map((comment) => {
-        // Busca as informações do usuário para cada comentário
-        const { data: user } = useUsersById(comment.user_id);
+        // Encontrar o usuário correspondente ao comentário
+        const user = users?.find((user) => user.id === comment.user_id);
 
         return (
           <Box
