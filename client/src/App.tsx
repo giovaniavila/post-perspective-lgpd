@@ -16,7 +16,7 @@ function App() {
           <MainRoutes />
           <ToastContainer />
         </ChakraProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
+       
       </UserProvider>
     </QueryClientProvider>
   );

@@ -1,6 +1,6 @@
 import { VStack, Heading, Box, Flex, Text } from "@chakra-ui/react";
-import { getPostById } from "../../pages/posts/postData";
 import { useParams } from "react-router-dom";
+import { UsePostById } from "../../queries/usePosts";
 
 interface CardCommentProps {
   post_id: number;
@@ -13,9 +13,10 @@ interface CardCommentProps {
 
 const CardComment = () => {
   const { id } = useParams();
-  const post = getPostById(id);
+  console.log(id)
+  const { data: PostByID } = UsePostById(Number(id));
 
-  if (!post) {
+  if (!PostByID) {
     return (
       <Box>
         <Heading>Post not found</Heading>
@@ -28,9 +29,9 @@ const CardComment = () => {
       <Heading as="h2" fontSize="xl">
         Comments
       </Heading>
-      {post.comments.map((comment) => (
+      {PostByID.comments.map((comment) => (
         <Box
-          key={post.id}
+          key={PostByID.id}
           p="1rem"
           borderWidth="1px"
           borderRadius="md"

@@ -1,28 +1,34 @@
 import {
   Box,
-  Button,
-  Flex,
   Heading,
   Text,
-  Textarea,
   VStack,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { getPostById } from "./postData";
 import { AddComment } from "./comment/AddComment";
 import CardComment from "../../components/CardComment";
+import { UsePostById } from "../../queries/usePosts";
 
 export default function PostSection() {
   const { id } = useParams();
-  const post = getPostById(id);
+  console.log(id);
 
-  if (!post) {
+  // Chamada para pegar os dados do post
+  const { data: PostByID } = UsePostById(Number(id));
+
+  console.log("esse é o post by uid:", PostByID);
+
+  // Caso não haja dados ou o post não seja encontrado
+  if (!PostByID || PostByID.length === 0) {
     return (
       <Box>
         <Heading>Post not found</Heading>
       </Box>
     );
   }
+
+  // Se for um array, pegar o primeiro item
+  const post = Array.isArray(PostByID) ? PostByID[0] : PostByID;
 
   return (
     <Box
@@ -64,7 +70,7 @@ export default function PostSection() {
         <Heading as="h2" fontSize="xl">
           Comments
         </Heading>
-        <CardComment />
+        {/* <CardComment /> */}
       </VStack>
       <AddComment />
     </Box>

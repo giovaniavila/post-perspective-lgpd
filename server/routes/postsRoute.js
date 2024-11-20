@@ -4,7 +4,7 @@ const postsController = require("../controllers/postsController");
 
 router.get("/posts", postsController.read)
 
-router.get("/posts/:id", postsController.readById)
+router.get("/home/posts/:id", postsController.readById)
 
 router.post("/posts", postsController.create)
 

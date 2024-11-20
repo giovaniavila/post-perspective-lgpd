@@ -1,35 +1,36 @@
-import { Flex } from "@chakra-ui/react";
+import { Center, Flex, Heading, Spinner } from "@chakra-ui/react";
 import CardPost from "..";
-
-const posts = [
-  {
-    id: "1",
-    title: "Understanding FlexBox",
-    content: "Flexbox layout details...",
-  },
-  {
-    id: "2",
-    title: "React Hooks Overview",
-    content: "Introduction to hooks in React...",
-  },
-  {
-    id: "3",
-    title: "Chakra UI Best Practices",
-    content: "Tips for using Chakra UI...",
-  },
-];
+import { usePost } from "../../../queries/usePosts";
 
 export default function CardPostList() {
+  const { data: posts, isLoading } = usePost();
+  console.log(posts); // Para depuração
+
+  // Exibe carregando enquanto os dados estão sendo buscados
+  if (isLoading) {
+    return (
+      <Center h="100vh">
+        <Spinner size="xl" color="blue.500" />
+      </Center>
+    );
+  }
+
   return (
-    <Flex direction="column" gap="30px">
-      {posts.map((post) => (
-        <CardPost
-          key={post.id}
-          id={post.id}
-          title={post.title}
-          content={post.content}
-        />
-      ))}
+    <Flex direction="column" gap="30px" p="2rem">
+      {posts && posts.length > 0 ? (
+        posts.map((post: any) => (
+          <CardPost
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            content={post.content}
+          />
+        ))
+      ) : (
+        <Center>
+          <Heading>No posts available</Heading>
+        </Center>
+      )}
     </Flex>
   );
 }

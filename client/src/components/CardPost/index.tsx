@@ -12,7 +12,7 @@ function navigateTo(id: string) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`/home/posts/${id}`);
+    navigate(`posts/${id}`); 
   }
 
   return { handleClick };
