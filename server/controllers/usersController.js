@@ -91,34 +91,42 @@ class usersController {
     const answer = usersModel.deleteUser(id);
 
     answer
-      .then((answerDelete) => res.status(200).json(answerDelete), createEventBackup(`User with ID ${id} deleted`))
+      .then(
+        (answerDelete) => res.status(200).json(answerDelete),
+        createEventBackup(`User with ID ${id} deleted`)
+      )
       .catch((error) => res.status(400).json(error.message));
   }
 
-   sendUserDataEmail = async ({ toEmail, subject, text, userDataFile }) => {
-    if (!toEmail || !subject || !text || !userDataFile) {
-      throw new Error("Missing required fields: toEmail, subject, text, or userDataFile.");
+  sendUserDataEmail = async ({ toEmail, userDataFile }) => {
+    if (!toEmail || !userDataFile) {
+      throw new Error("Missing required fields: toEmail or userDataFile.");
     }
 
+    // Define subject e text fixos
+    const subject = "Solicitação de Dados Pessoais Cadastrados";
+    const text =
+      "Em conformidade com a nossa política de privacidade e com a legislação vigente, gostaríamos de confirmar o envio dos seus dados pessoais cadastrados em nossa plataforma.\n\nSegue em anexo uma cópia dos dados que você forneceu durante o processo de registro em nossa aplicação.\n\nEstes dados foram coletados de maneira segura e estão sendo utilizados de acordo com os termos e condições previamente acordados.\n\nOs dados anexados incluem informações como seu nome completo, endereço de e-mail, profissão, data de criação de sua conta e local de nascimento, entre outras.\n\nReforçamos que todos os dados pessoais que armazenamos são tratados com total respeito à sua privacidade, conforme descrito em nossa Política de Privacidade.\n\nCaso haja alguma dúvida sobre as informações fornecidas ou se você desejar atualizar seus dados pessoais, pedimos que entre em contato com nossa equipe de suporte através dos canais oficiais disponíveis.\n\nAgradecemos pela confiança em utilizar nossos serviços.\n\nEstamos à disposição para quaisquer esclarecimentos que se façam necessários.\n\nAtenciosamente,\nPost Perspective Lgpd.";
+
     const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
+      host: "smtp.ethereal.email", // Você pode ajustar para seu provedor, como Gmail
       service: "gmail",
-      secure: false, 
+      secure: false,
       auth: {
-        user: process.env.EMAIL_USER, 
-        pass: process.env.PASSWORD_USER, 
+        user: process.env.EMAIL_USER,
+        pass: process.env.PASSWORD_USER,
       },
     });
-  
+
     const mailOptions = {
-      from: process.env.EMAIL_USER, 
-      to: toEmail, 
-      subject: subject, 
-      text: text, 
+      from: process.env.EMAIL_USER,
+      to: toEmail,
+      subject, // Usando o subject fixo
+      text, // Usando o texto fixo
       attachments: [
         {
-          filename: 'user_data.txt', 
-          content: userDataFile,    
+          filename: "user_data.txt",
+          content: userDataFile.join("\n"), // Converte o array de strings para um texto único
         },
       ],
     };
@@ -131,7 +139,6 @@ class usersController {
       throw error;
     }
   };
-
 }
 
 module.exports = new usersController();

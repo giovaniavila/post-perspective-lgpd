@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UserProps } from "../interface/users";
+import { SendEmailProps, UserProps } from "../interface/users";
 
 export const getUsers = async (): Promise<UserProps[]> => {
   const response = await axios.get("http://localhost:3000/users");
@@ -13,6 +13,19 @@ export const getUserById = async(userId: number): Promise<UserProps> => {
 
 export const postUser = async (newUser: UserProps): Promise<UserProps> => {
   const response = await axios.post("http://localhost:3000/users", newUser, {
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  return response.data;
+};
+
+export const postUserEmailData = async ({ toEmail, userDataFile }: SendEmailProps): Promise<void> => {
+  const payload = {
+    toEmail,
+    userDataFile
+  }
+  const response = await axios.post("http://localhost:3000/sendEmail", payload, {
     headers: {
       "Content-type": "application/json",
     },

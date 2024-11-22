@@ -8,3 +8,8 @@ export interface UserProps {
   email: string;
   terms_accepted: boolean;
 }
+
+export interface SendEmailProps {
+  toEmail: string;
+  userDataFile: string[];
+}

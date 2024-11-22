@@ -16,14 +16,33 @@ import {
 } from "@chakra-ui/react";
 import { getUserIdFromToken } from "../../hooks/useGetToken";
 import { useUsersById } from "../../queries/useUsers";
+import { useSendEmailData } from "../../mutations/users";
 
 export function ModalRequestData() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userId = getUserIdFromToken();
   const { data } = useUsersById(userId);
+  console.log("dados do usuario:", { data });
+
+  const { mutate: sendEmail } = useSendEmailData();
 
   function HandleRequestData() {
-    console.log("voce solicitou seus dados");
+    if (data) {
+      const payload = {
+        toEmail: data[0].email,
+        userDataFile: [
+          `Nome: ${data[0].full_name}`,
+          `Email: ${data[0].email}`,
+          `Profissão: ${data[0].profession}`,
+          `Data de Criação: ${data[0].created_at}`,
+          `Local de Nascimento: ${data[0].birthplace}`,
+        ],
+      };
+
+      sendEmail(payload);
+    }
+
+    console.log("Você solicitou seus dados");
   }
 
   return (
