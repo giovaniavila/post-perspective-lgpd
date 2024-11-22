@@ -8,18 +8,14 @@ const CardComment = () => {
   const { id } = useParams();
   const { data: PostByID } = UsePostById(Number(id));
 
-  // Verificar se o post existe
   if (!PostByID || PostByID.length === 0) {
     console.error("Nenhum post encontrado");
     return null;
   }
 
   const post_id = PostByID[0]?.id;
-
-  // Busca os comentários do post
   const { data: comments, isLoading } = useCommentsByPostId(post_id);
 
-  // Exibe um loader enquanto os dados estão sendo carregados
   if (isLoading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center">
@@ -28,7 +24,6 @@ const CardComment = () => {
     );
   }
 
-  // Verificar se os comentários foram encontrados
   if (!comments || comments.length === 0) {
     return (
       <Box>
@@ -37,11 +32,10 @@ const CardComment = () => {
     );
   }
 
-  // Buscar todos os usuários de uma vez
-  const userIds = comments.map((comment) => comment.user_id);
+  const userIds = comments.map((comment: any) => comment.user_id);
+
   const { data: users, isLoading: isUsersLoading } = useUsersById(userIds);
 
-  // Exibe um loader enquanto os dados dos usuários estão sendo carregados
   if (isUsersLoading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center">
@@ -52,9 +46,8 @@ const CardComment = () => {
 
   return (
     <VStack align="start" spacing="1rem">
-      {comments.map((comment) => {
-        // Encontrar o usuário correspondente ao comentário
-        const user = users?.find((user) => user.id === comment.user_id);
+      {comments.map((comment: any) => {
+        const user = users?.find((user: any) => user.id === comment.user_id);
 
         return (
           <Box
@@ -82,5 +75,6 @@ const CardComment = () => {
     </VStack>
   );
 };
+
 
 export default CardComment;

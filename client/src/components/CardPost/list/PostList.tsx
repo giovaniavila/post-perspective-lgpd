@@ -4,7 +4,6 @@ import { usePost } from "../../../queries/usePosts";
 
 export default function CardPostList() {
   const { data: posts, isLoading } = usePost();
-  console.log(posts); // Para depuração
 
   // Exibe carregando enquanto os dados estão sendo buscados
   if (isLoading) {

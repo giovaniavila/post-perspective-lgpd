@@ -6,6 +6,7 @@ import PostSection from "../pages/posts";
 import CardPostList from "../components/CardPost/list/PostList";
 import Sidebar from "../components/Sidebar";
 import PrivateRoute from "./PrivateRoute";
+import { TermsAndConditions } from "../components/TermsAndConditions";
 
 const MainRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const MainRoutes = () => {
             <Route index element={<CardPostList />} />
             <Route path="userprofile" element={<UserProfile />} />
             <Route path="posts/:id" element={<PostSection />} />
+            <Route path="terms" element={<TermsAndConditions />} />
           </Route>
           <Route path="users/:id" element={<Sidebar />} />
         </Route>

@@ -1,11 +1,15 @@
 import { Avatar, Box, Heading, Text, Flex, Spinner } from "@chakra-ui/react";
-import { ButtonLogout, ButtonUserProfile } from "../Button";
+import { ButtonLink, ButtonLogout, ButtonUserProfile } from "../Button";
 import logout from "../../assets/logout.svg";
 import { useUsersById } from "../../queries/useUsers";
 import { getUserIdFromToken } from "../../hooks/useGetToken";
+import { usePermission } from "./../../hooks/usePermission";
+import { FaUserPen } from "react-icons/fa6";
+import { postComment } from "./../../api/comments";
 
 const Sidebar = () => {
   const userId = getUserIdFromToken();
+  const { isAdmin } = usePermission();
 
   const { data, isLoading } = useUsersById(userId);
 
@@ -36,13 +40,25 @@ const Sidebar = () => {
               )}
             </Text>
           </Flex>
-          <ButtonUserProfile href="/home/userprofile" buttonName="User Settings" />
+          <ButtonUserProfile
+            href="/home/userprofile"
+            buttonName="User Settings"
+          />
         </Flex>
         <Box mt="2rem">
           <Heading as="h2" fontSize="20px">
             Actions
           </Heading>
-          <ButtonLogout text="Logout" image={logout} />
+          <Flex direction="column" alignContent="center">
+            <ButtonLogout text="Logout" image={logout} />
+            {isAdmin && (
+              <ButtonLink
+                buttonName="Editar termos e condições"
+                href="/home/terms"
+                image={<FaUserPen />}
+              />
+            )}
+          </Flex>
         </Box>
       </Box>
     </Box>

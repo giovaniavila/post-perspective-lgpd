@@ -59,7 +59,8 @@ export const ButtonLink = ({
       fontWeight="500"
       _hover={{ color: "blue.900" }}
     >
-      <Flex alignItems="center" gap="10px">
+      <Flex alignItems="center" gap="10px" p="8px">
+        {image && image}
         {buttonName}
       </Flex>
     </Box>

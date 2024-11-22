@@ -6,17 +6,13 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { AddComment } from "./comment/AddComment";
-import CardComment from "../../components/CardComment";
 import { UsePostById } from "../../queries/usePosts";
 
 export default function PostSection() {
   const { id } = useParams();
-  console.log(id);
 
   // Chamada para pegar os dados do post
   const { data: PostByID } = UsePostById(Number(id));
-
-  console.log("esse é o post by uid:", PostByID);
 
   // Caso não haja dados ou o post não seja encontrado
   if (!PostByID || PostByID.length === 0) {
@@ -70,7 +66,7 @@ export default function PostSection() {
         <Heading as="h2" fontSize="xl">
           Comments
         </Heading>
-         <CardComment /> 
+         {/* <CardComment />  */}
       </VStack>
       <AddComment />
     </Box>
