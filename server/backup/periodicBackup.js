@@ -6,12 +6,11 @@ const path = require('path');
 
 // Função para criar backup periódico
 function createPeriodicBackup() {
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); // Formatar timestamp
-    const backupDirectory = path.join(__dirname, 'backupFiles'); // Diretório para salvar os backups
+    // const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); 
+    const backupDirectory = path.join(__dirname, '/backupFiles'); // Diretório para salvar os backups
+    // const backupFileName = `periodic_backup_${timestamp}.sql`;
     
-    const backupFileName = `periodic_backup_${timestamp}.sql`;
-    
-    const backupPath = path.join(backupDirectory, backupFileName);
+    const backupPath = path.join(backupDirectory, 'periodic_backup.sql');
 
     // Verificar se o diretório existe; caso contrário, criar
     if (!fs.existsSync(backupDirectory)) {

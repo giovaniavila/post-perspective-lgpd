@@ -6,12 +6,12 @@ const fs = require('fs');
 
 // Função para criar backup após evento (por exemplo, ao deletar um usuário)
 function createEventBackup(eventDescription) {
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); // Formatar timestamp
-    const backupDirectory = path.join(__dirname, 'backupFiles');
+    // const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); 
+    const backupDirectory = path.join(__dirname, '/backupFiles');
 
-    const backupFileName = `event_backup_${timestamp}.sql`;
+    // const backupFileName = `event_backup_${timestamp}.sql`;
 
-    const backupPath = path.join(backupDirectory, backupFileName);
+    const backupPath = path.join(backupDirectory, 'event_backup.sql');
 
     // Verificar se o diretório existe; caso contrário, criar
     if (!fs.existsSync(backupDirectory)) {
