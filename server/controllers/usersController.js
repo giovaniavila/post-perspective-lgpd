@@ -2,6 +2,7 @@ const usersModel = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { createEventBackup } = require("../backup/eventBackup");
+const nodemailer = require("nodemailer");
 
 class usersController {
   async create(req, res) {
@@ -93,6 +94,44 @@ class usersController {
       .then((answerDelete) => res.status(200).json(answerDelete), createEventBackup(`User with ID ${id} deleted`))
       .catch((error) => res.status(400).json(error.message));
   }
+
+   sendUserDataEmail = async ({ toEmail, subject, text, userDataFile }) => {
+    if (!toEmail || !subject || !text || !userDataFile) {
+      throw new Error("Missing required fields: toEmail, subject, text, or userDataFile.");
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      service: "gmail",
+      secure: false, 
+      auth: {
+        user: process.env.EMAIL_USER, 
+        pass: process.env.PASSWORD_USER, 
+      },
+    });
+  
+    const mailOptions = {
+      from: process.env.EMAIL_USER, 
+      to: toEmail, 
+      subject: subject, 
+      text: text, 
+      attachments: [
+        {
+          filename: 'user_data.txt', 
+          content: userDataFile,    
+        },
+      ],
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log("E-mail enviado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao enviar e-mail:", error);
+      throw error;
+    }
+  };
+
 }
 
 module.exports = new usersController();

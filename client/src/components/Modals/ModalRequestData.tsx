@@ -14,10 +14,13 @@ import {
   useDisclosure,
   Text,
 } from "@chakra-ui/react";
-import { MdMarkEmailUnread } from "react-icons/md";
+import { getUserIdFromToken } from "../../hooks/useGetToken";
+import { useUsersById } from "../../queries/useUsers";
 
 export function ModalRequestData() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const userId = getUserIdFromToken();
+  const { data } = useUsersById(userId);
 
   function HandleRequestData() {
     console.log("voce solicitou seus dados");
