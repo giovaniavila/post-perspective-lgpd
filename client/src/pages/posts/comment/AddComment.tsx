@@ -32,8 +32,8 @@ export const AddComment = () => {
         mb="1rem"
         borderRadius="5px"
         _focus={{
-          borderColor: "#FFD66D",
-          boxShadow: "0 0 0 1px #FFD66D",
+          borderColor: "blue.500",
+          boxShadow: "0 0 0 1px blue.500",
         }}
       />
       <Button
