@@ -13,12 +13,12 @@ class commentsTable {
                 post_id INT NOT NULL,
                 content TEXT NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
                 deleted_at TIMESTAMP NULL DEFAULT NULL,
-                FOREIGN KEY (user_id) REFERENCES USERS(id),
-                FOREIGN KEY (post_id) REFERENCES POSTS(id)
-            );
-        
+                FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE CASCADE,
+                FOREIGN KEY (post_id) REFERENCES POSTS(id) ON DELETE CASCADE
+            ); 
+            
         `
 
         this.connection.query(sql, (error) => {
