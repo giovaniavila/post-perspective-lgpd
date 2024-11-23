@@ -17,12 +17,13 @@ class postsModel {
 
   createPost(newPost) {
     const sql = `
-      INSERT INTO posts (title, content, created_at) VALUES (?, ?, NOW());
+      INSERT INTO posts (title, content, user_id, created_at) VALUES (?, ?, ?, NOW());
     `;
         
     const params = [
       newPost.title,
-      newPost.content  
+      newPost.content,
+      newPost.user_id
     ];
     
     return this.executeQuery(sql, params);

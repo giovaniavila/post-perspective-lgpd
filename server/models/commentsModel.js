@@ -40,10 +40,26 @@ class commentsModel {
   
   //return all comments that has a specific post_id
   readCommentsByPostID(post_id) {
-    const sql = "SELECT * FROM comments WHERE post_id = ?";
-        
-    return this.executeQuery(sql,[post_id]);
-  }
+    const sql = `
+        SELECT 
+            c.id AS comment_id,
+            c.content AS comment_content,
+            c.created_at AS comment_created_at,
+            u.id AS user_id,
+            u.username,
+            u.full_name,
+            u.profession,
+            u.email
+        FROM 
+            COMMENTS c
+        INNER JOIN 
+            USERS u ON c.user_id = u.id
+        WHERE 
+            c.post_id = ? 
+            AND c.deleted_at IS NULL;
+    `;
+    return this.executeQuery(sql, [post_id]);
+}
 
   updateComment(updatedComment, id) {
     const sql = `
