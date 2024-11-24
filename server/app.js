@@ -21,6 +21,7 @@ const connection = require("./infra/connection");
 const usersTable = require("./infra/usersTable");
 const postsTable = require("./infra/postsTable");
 const commentsTable = require("./infra/commentsTable");
+const termsAndConditionsTable = require("./infra/termsAndConditionsTable");
 
 const routes = require("./routes/index");
 
@@ -39,6 +40,7 @@ connection.connect((error) => {
   usersTable.init(connection);
   postsTable.init(connection);
   commentsTable.init(connection);
+  termsAndConditionsTable.init(connection);
 
   app.listen(port, (error) => {
     if (error) {
