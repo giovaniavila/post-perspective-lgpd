@@ -14,10 +14,13 @@ import {
   Flex,
   UnorderedList,
   ListItem,
+  Icon,
 } from "@chakra-ui/react";
 import { GoAlertFill } from "react-icons/go";
 import { getUserIdFromToken } from "../../hooks/useGetToken";
 import { useDeleteUser } from "../../mutations/users";
+import { useDeleteComment } from "../../mutations/comments";
+import { FaTrash } from "react-icons/fa";
 
 export default function ModalTermsAndConditions() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -367,6 +370,120 @@ export function ModalDeleteUser() {
               onClick={handleDeleteAccount}
             >
               Excluir conta
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
+
+export function ModalDeleteComment({ commentId }: { commentId: number }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { mutate: deleteCommentMutation } = useDeleteComment();
+
+  function handleDeleteComment() {
+    deleteCommentMutation(commentId);
+  }
+
+  return (
+    <>
+      <Text
+        _hover={{
+          bgColor: "transparent",
+          color: "#C53030",
+          cursor: "pointer",
+        }}
+        bgColor="transparent"
+        onClick={onOpen}
+        color="red.600"
+        h="20px"
+        fontSize="14px"
+        display="flex"
+        gap="10px"
+        alignItems="center"
+      >
+        <Icon
+          aria-label="Excluir comentário"
+          as={FaTrash}
+          h="15px"
+          w="15px"
+          size="sm"
+          cursor="pointer"
+          _hover={{
+            color: "red.800",
+          }}
+        />
+      </Text>
+
+      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <ModalContent
+          maxH="60vh"
+          maxW="40vw"
+          overflowY="auto"
+          p="10px"
+          css={{
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#C53030",
+              borderRadius: "4px",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              backgroundColor: "#C53030",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "",
+            },
+          }}
+        >
+          <ModalHeader>Atenção: exclusão de comentário</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Flex gap="1.5625rem" direction="column">
+              <Box>
+                <Text id="coleta-dados">
+                  Você está prestes a excluir um comentário. Ao confirmar a
+                  exclusão, o comentário será permanentemente apagado e não
+                  poderá ser recuperado.
+                  <UnorderedList
+                    display="flex"
+                    flexDirection="column"
+                    gap="12px"
+                  >
+                    <ListItem mt="8px">
+                      <strong>Exclusão Permanente:</strong> Uma vez confirmado,
+                      o comentário será excluído definitivamente.
+                    </ListItem>
+                    <ListItem>
+                      <strong>Impacto:</strong> O comentário não estará mais
+                      visível no post e será removido de todas as interações.
+                    </ListItem>
+                  </UnorderedList>
+                  <Text mt="1rem">
+                    Se você tem certeza de que deseja excluir este comentário,
+                    clique em "Confirmar". Caso contrário, você pode voltar e
+                    continuar interagindo.
+                  </Text>
+                  <Text mt="1rem">Agradecemos por sua compreensão.</Text>
+                </Text>
+              </Box>
+            </Flex>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              bgColor="red.500"
+              color="white"
+              _hover={{
+                bgColor: "#C53030",
+                filter: "brightness(0.8)",
+              }}
+              onClick={handleDeleteComment}
+            >
+              Excluir comentário
             </Button>
           </ModalFooter>
         </ModalContent>

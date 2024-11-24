@@ -1,7 +1,17 @@
-import { VStack, Heading, Box, Flex, Text, Spinner } from "@chakra-ui/react";
+import {
+  VStack,
+  Heading,
+  Box,
+  Flex,
+  Text,
+  Spinner,
+} from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { UsePostById } from "../../queries/usePosts";
 import { useCommentsByPostId } from "../../queries/useComments";
+import { ModalDeleteComment } from "../Modals";
+import { useUsersById } from "../../queries/useUsers"; 
+import { getUserIdFromToken } from "../../hooks/useGetToken";
 
 const CardComment = () => {
   const { id } = useParams();
@@ -14,6 +24,9 @@ const CardComment = () => {
 
   const post_id = PostByID[0]?.id;
   const { data: comments, isLoading } = useCommentsByPostId(post_id);
+
+  const userId = getUserIdFromToken();
+  const { data } = useUsersById(userId); 
 
   if (isLoading) {
     return (
@@ -41,17 +54,14 @@ const CardComment = () => {
             CA: "CA",
             FR: "FR",
             DE: "DE",
-            // Adicione mais códigos de país conforme necessário
           };
-        
+
           return countryMapping[birthplace] || null;
         };
-        
 
         const countryCode = getCountryCode(comment.birthplace);
 
-        console.log("birthplace:", comment.birthplace);
-        console.log("countryCode:", countryCode);
+        const isCommentOwner = comment.user_id === data[0]?.id;
 
         return (
           <Box
@@ -82,6 +92,9 @@ const CardComment = () => {
                       height="20"
                     />
                   ) : null}
+                  {isCommentOwner && (
+                    <ModalDeleteComment commentId={comment.comment_id} />
+                  )}
                 </Flex>
               </Flex>
               <Text fontWeight="semibold" fontSize="14px">

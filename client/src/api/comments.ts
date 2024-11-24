@@ -26,11 +26,6 @@ export const postComment = async (
   return response.data;
 };
 
-export const deleteComment = async (
-  idComment: number,
-  userId: number
-): Promise<void> => {
-  await axios.delete(`http://localhost:3000/comments/${idComment}`, {
-    data: { userId },
-  });
+export const deleteComment = async (idComment: number): Promise<void> => {
+  await axios.delete(`http://localhost:3000/comments/${idComment}`);
 };
