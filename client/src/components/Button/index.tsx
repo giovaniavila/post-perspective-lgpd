@@ -28,7 +28,7 @@ interface ButtonUserProfileProps {
   href: string;
 }
 
-export const Button = ({ text, ...rest }: ButtonProps) => {
+export const Button = ({ text, children, ...rest }: ButtonProps) => {
   return (
     <ChakraButton
       marginTop="5px"
@@ -38,7 +38,11 @@ export const Button = ({ text, ...rest }: ButtonProps) => {
       {...rest}
       _hover={{ filter: "brightness(0.8)", transition: ".3s" }}
     >
-      {text}
+      <Flex alignItems="center" justifyContent="center" gap="8px"> 
+       
+        {children} 
+        {text}
+      </Flex>
     </ChakraButton>
   );
 };

@@ -2,6 +2,7 @@ import { Box, Flex, Grid, Text } from "@chakra-ui/react";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { Outlet } from "react-router-dom";
+import ModalTermsAndConditions, { ModalPrivacy } from "../../components/Modals";
 
 const Home = () => {
   return (
@@ -25,9 +26,13 @@ const Home = () => {
         alignItems="center"
       >
         <Text>@ 2024 Blog System</Text>
-        <Flex gap="15px">
-          <Text>Privacy</Text>
-          <Text>Terms of service</Text>
+        <Flex gap="15px" alignItems="baseline" color="black">
+          <Text>
+            <ModalPrivacy />
+          </Text>
+          <Text>
+            <ModalTermsAndConditions fontSize="1rem" color="black" />
+          </Text>
           <Text>Contact</Text>
         </Flex>
       </Flex>

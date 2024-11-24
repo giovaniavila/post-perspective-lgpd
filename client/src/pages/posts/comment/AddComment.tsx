@@ -13,7 +13,7 @@ export const AddComment = () => {
 
   if (!PostByID || PostByID.length === 0) {
     console.error("Nenhum post encontrado");
-    return null; 
+    return null;
   }
   const post_id = PostByID[0]?.id;
 

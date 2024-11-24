@@ -17,6 +17,7 @@ const CardComment = () => {
   const { id } = useParams();
   const { data: PostByID } = UsePostById(Number(id));
 
+
   if (!PostByID || PostByID.length === 0) {
     console.error("Nenhum post encontrado");
     return null;

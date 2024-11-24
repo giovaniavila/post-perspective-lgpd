@@ -22,7 +22,6 @@ export function ModalRequestData() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userId = getUserIdFromToken();
   const { data } = useUsersById(userId);
-  console.log("dados do usuario:", { data });
 
   const { mutate: sendEmail } = useSendEmailData();
 
@@ -41,8 +40,6 @@ export function ModalRequestData() {
 
       sendEmail(payload);
     }
-
-    console.log("Você solicitou seus dados");
   }
 
   return (
