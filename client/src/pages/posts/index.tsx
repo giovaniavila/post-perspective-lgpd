@@ -7,6 +7,7 @@ import {
 import { useParams } from "react-router-dom";
 import { AddComment } from "./comment/AddComment";
 import { UsePostById } from "../../queries/usePosts";
+import CardComment from "../../components/CardComment";
 
 export default function PostSection() {
   const { id } = useParams();
@@ -66,7 +67,7 @@ export default function PostSection() {
         <Heading as="h2" fontSize="xl">
           Comments
         </Heading>
-         {/* <CardComment />  */}
+         <CardComment />  
       </VStack>
       <AddComment />
     </Box>

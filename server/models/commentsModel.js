@@ -49,7 +49,8 @@ class commentsModel {
             u.username,
             u.full_name,
             u.profession,
-            u.email
+            u.email,
+            u.birthplace
         FROM 
             COMMENTS c
         INNER JOIN 

@@ -2,7 +2,6 @@ import { VStack, Heading, Box, Flex, Text, Spinner } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { UsePostById } from "../../queries/usePosts";
 import { useCommentsByPostId } from "../../queries/useComments";
-import { useUsersById } from "../../queries/useUsers";
 
 const CardComment = () => {
   const { id } = useParams();
@@ -32,26 +31,31 @@ const CardComment = () => {
     );
   }
 
-  const userIds = comments.map((comment: any) => comment.user_id);
-
-  const { data: users, isLoading: isUsersLoading } = useUsersById(userIds);
-
-  if (isUsersLoading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Spinner />
-      </Box>
-    );
-  }
-
   return (
     <VStack align="start" spacing="1rem">
       {comments.map((comment: any) => {
-        const user = users?.find((user: any) => user.id === comment.user_id);
+        const getCountryCode = (birthplace: string): string | null => {
+          const countryMapping: Record<string, string> = {
+            BR: "BR",
+            US: "US",
+            CA: "CA",
+            FR: "FR",
+            DE: "DE",
+            // Adicione mais códigos de país conforme necessário
+          };
+        
+          return countryMapping[birthplace] || null;
+        };
+        
+
+        const countryCode = getCountryCode(comment.birthplace);
+
+        console.log("birthplace:", comment.birthplace);
+        console.log("countryCode:", countryCode);
 
         return (
           <Box
-            key={comment.id}
+            key={comment.comment_id}
             p="1rem"
             borderWidth="1px"
             borderRadius="md"
@@ -60,14 +64,33 @@ const CardComment = () => {
             overflowY="auto"
           >
             <Flex justifyContent="space-between" direction="column" mb="10px">
-              <Text fontWeight="bold" fontSize="1.25rem">
-                {user?.username || "Usuário não encontrado"}
+              <Flex justifyContent="space-between">
+                <Text fontWeight="bold" fontSize="1.25rem">
+                  {comment.username || "Usuário não encontrado"}
+                </Text>
+                <Flex
+                  align="center"
+                  fontWeight="bold"
+                  fontSize="1rem"
+                  gap="0.5rem"
+                >
+                  {countryCode ? (
+                    <img
+                      src={`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`}
+                      alt={`Bandeira de ${comment.birthplace}`}
+                      width="20"
+                      height="20"
+                    />
+                  ) : null}
+                </Flex>
+              </Flex>
+              <Text fontWeight="semibold" fontSize="14px">
+                {comment.profession || "Profissão desconhecida"}
               </Text>
-              <Text fontWeight="semibold">{user?.occupation || "Desconhecida"}</Text>
             </Flex>
-            <Text color="gray.500">{comment.content}</Text>
+            <Text color="gray.500">{comment.comment_content}</Text>
             <Text fontSize="sm" color="gray.400">
-              {new Date(comment.created_at).toLocaleString()}
+              {new Date(comment.comment_created_at).toLocaleString()}
             </Text>
           </Box>
         );
@@ -75,6 +98,5 @@ const CardComment = () => {
     </VStack>
   );
 };
-
 
 export default CardComment;

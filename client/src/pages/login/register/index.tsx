@@ -6,6 +6,7 @@ import {
   FormLabel,
   Input,
   Link,
+  Select,
 } from "@chakra-ui/react";
 import { Button } from "../../../components/Button";
 import ModalTermsAndConditions from "../../../components/Modals";
@@ -21,6 +22,9 @@ interface RegisterProps {
 export default function Register({ setIsRegistering }: RegisterProps) {
   const { mutate } = useCreateUser();
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [selectedCountryCode, setSelectedCountryCode] = useState<string | null>(
+    null
+  );
 
   const onSubmit: SubmitHandler<UserProps> = async (data) => {
     const userData: UserProps & { admin: false } = {
@@ -35,6 +39,16 @@ export default function Register({ setIsRegistering }: RegisterProps) {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<UserProps>();
+
+  // Mapeamento das siglas dos países
+  const countryMapping: Record<string, string> = {
+    Brasil: "BR",
+    EUA: "US",
+    Canadá: "CA",
+    França: "FR",
+    Alemanha: "DE",
+    // Adicione outros países conforme necessário
+  };
 
   return (
     <Flex flexDirection="column" gap="20px" paddingTop="1.5rem">
@@ -129,21 +143,45 @@ export default function Register({ setIsRegistering }: RegisterProps) {
         </FormControl>
 
         <FormControl isInvalid={!!errors.birthplace} mb="1rem">
-          <FormLabel htmlFor="birthplace">Birthplace</FormLabel>
-          <Input
-            type="text"
+          <FormLabel htmlFor="birthplace">
+            <Flex alignItems="center" gap="10px">
+              Birthplace{" "}
+              {selectedCountryCode && (
+                <Box textAlign="center">
+                  <img
+                    src={`https://flagcdn.com/w40/${selectedCountryCode.toLowerCase()}.png`}
+                    alt={`Flag of ${Object.keys(countryMapping).find(
+                      (key) => countryMapping[key] === selectedCountryCode
+                    )}`}
+                    width="20"
+                    height="20"
+                  />
+                </Box>
+              )}
+            </Flex>
+          </FormLabel>
+          <Select
             h="3.125rem"
             fontSize="0.875rem"
             id="birthplace"
-            placeholder="Enter your birthplace"
+            placeholder="Select your birthplace"
             {...register("birthplace", {
               required: "O preenchimento do campo é obrigatório",
             })}
-          />
+            onChange={(e) => setSelectedCountryCode(e.target.value)}
+          >
+            {Object.entries(countryMapping).map(([country, code]) => (
+              <option key={code} value={code}>
+                {country}
+              </option>
+            ))}
+          </Select>
           {errors.birthplace && (
             <Box textColor="red.500">{errors.birthplace.message}</Box>
           )}
         </FormControl>
+
+        {/* Exibição da bandeira selecionada */}
 
         <Flex alignItems="center" justifyContent="space-between" mb="1.5rem">
           <Flex alignItems="start" gap="5px">
