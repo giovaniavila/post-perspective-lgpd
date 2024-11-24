@@ -5,6 +5,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
   Textarea,
 } from "@chakra-ui/react";
 import { Button } from "../Button/index";
@@ -15,7 +16,7 @@ import { useState, useEffect } from "react";
 
 export function TermsAndConditions() {
   const { data } = useTerms();
-  const { mutate: editTerms } = useEditTerms();
+  const { mutate: editTerms, isPending } = useEditTerms();
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -40,9 +41,12 @@ export function TermsAndConditions() {
       content,
     };
 
-    editTerms({ updateTerms: updatedTerms });
+    try {
+      editTerms({ updateTerms: updatedTerms });
+    } catch (error) {
+      console.error("Erro ao editar os termos", error);
+    }
   };
-
 
   return (
     <Flex
@@ -75,6 +79,22 @@ export function TermsAndConditions() {
         <FormControl mb="1rem">
           <FormLabel htmlFor="content">Conteúdo</FormLabel>
           <Textarea
+            sx={{
+              "&::-webkit-scrollbar": {
+                width: "8px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "blue.900",
+                borderRadius: "10px",
+              },
+              "&::-webkit-scrollbar-thumb:hover": {
+                backgroundColor: "blue.800",
+                cursor: "pointer",
+              },
+            }}
             id="content"
             placeholder="Altere os termos aqui"
             h="300px"
@@ -82,7 +102,14 @@ export function TermsAndConditions() {
             onChange={(e) => setContent(e.target.value)}
           />
         </FormControl>
-        <Button type="submit" text="Salvar" h="2.5rem" maxW="15vw" />
+        <Button
+          type="submit"
+          text={isPending ? "Atualizando..." : "Salvar"}
+          h="2.5rem"
+          maxW="15vw"
+        >
+          {isPending && <Spinner size="sm" />}
+        </Button>
       </form>
     </Flex>
   );
