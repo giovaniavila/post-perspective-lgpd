@@ -86,6 +86,16 @@ class usersController {
       .catch((error) => res.status(400).json(error.message));
   }
 
+  updateTermsAccepted(req, res) {
+    const updatedUsers = req.body;
+    const { id } = req.params;
+    const usersUpdate = usersModel.updateTermsAccepted(updatedUsers, id);
+
+    usersUpdate
+      .then((users) => res.status(200).json(users))
+      .catch((error) => res.status(400).json(error.message));
+  }
+
   delete(req, res) {
     const { id } = req.params;
     const answer = usersModel.deleteUser(id);

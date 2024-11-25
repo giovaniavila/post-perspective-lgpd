@@ -142,6 +142,22 @@ class usersModel {
     }
   }
 
+  updateTermsAccepted(updatedUsers, id) {
+    const sql = `
+      UPDATE users SET 
+        terms_accepted = ?, 
+        updated_at = NOW()
+      WHERE id = ? ;
+    `;
+        
+    const params = [
+      updatedUsers.terms_accepted,
+      id
+    ];
+    
+    return this.executeQuery(sql, params);
+  }
+
   //deletes the user and calls the backupUser function
   deleteUser(id) {
     const sql = `DELETE FROM users WHERE id = ? ;`;

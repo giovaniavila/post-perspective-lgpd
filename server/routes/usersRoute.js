@@ -26,6 +26,9 @@ router.post("/sendEmail", async (req, res) => {
 
 router.put("/users/:id", usersController.update);
 
+// endpoint to update 'terms_accepted' in users after terms and conditions being updated
+router.put("/users-terms/:id", usersController.updateTermsAccepted);
+
 router.delete("/users/:id", usersController.delete);
 
 module.exports = router;
