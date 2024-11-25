@@ -5,7 +5,6 @@ import { useUsersById } from "../../queries/useUsers";
 import { getUserIdFromToken } from "../../hooks/useGetToken";
 import { usePermission } from "./../../hooks/usePermission";
 import { FaUserPen } from "react-icons/fa6";
-import { postComment } from "./../../api/comments";
 
 const Sidebar = () => {
   const userId = getUserIdFromToken();

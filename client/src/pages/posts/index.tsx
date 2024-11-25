@@ -7,14 +7,15 @@ import {
 import { useParams } from "react-router-dom";
 import { AddComment } from "./comment/AddComment";
 import { UsePostById } from "../../queries/usePosts";
+import CardComment from "../../components/CardComment";
 
 export default function PostSection() {
   const { id } = useParams();
 
-  // Chamada para pegar os dados do post
+  
   const { data: PostByID } = UsePostById(Number(id));
 
-  // Caso não haja dados ou o post não seja encontrado
+  
   if (!PostByID || PostByID.length === 0) {
     return (
       <Box>
@@ -23,7 +24,7 @@ export default function PostSection() {
     );
   }
 
-  // Se for um array, pegar o primeiro item
+
   const post = Array.isArray(PostByID) ? PostByID[0] : PostByID;
 
   return (
@@ -66,7 +67,7 @@ export default function PostSection() {
         <Heading as="h2" fontSize="xl">
           Comments
         </Heading>
-         {/* <CardComment />  */}
+         <CardComment />  
       </VStack>
       <AddComment />
     </Box>

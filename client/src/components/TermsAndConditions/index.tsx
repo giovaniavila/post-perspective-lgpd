@@ -5,11 +5,49 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
+  Textarea,
 } from "@chakra-ui/react";
 import { Button } from "../Button/index";
-import { Textarea } from "@chakra-ui/react";
+import { useTerms } from "../../queries/useTerms";
+import { TermsAndConditionsProps } from "../../interface/terms";
+import { useEditTerms } from "../../mutations/terms";
+import { useState, useEffect } from "react";
 
 export function TermsAndConditions() {
+  const { data } = useTerms();
+  const { mutate: editTerms, isPending } = useEditTerms();
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setTitle(data[0]?.title || "");
+      setContent(data[0]?.content || "");
+    }
+  }, [data]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!title || !content) {
+      console.error("Os campos título e conteúdo não podem estar vazios.");
+      return;
+    }
+
+    const updatedTerms: TermsAndConditionsProps = {
+      title,
+      content,
+    };
+
+    try {
+      editTerms({ updateTerms: updatedTerms });
+    } catch (error) {
+      console.error("Erro ao editar os termos", error);
+    }
+  };
+
   return (
     <Flex
       flexDirection="column"
@@ -26,23 +64,52 @@ export function TermsAndConditions() {
           Editar Termos e condições
         </Heading>
       </Flex>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormControl mb="1rem">
-          <FormLabel htmlFor="full_name">Título</FormLabel>
+          <FormLabel htmlFor="title">Título</FormLabel>
           <Input
             type="text"
+            id="title"
             h="3.125rem"
             fontSize="0.875rem"
-            id="full_name"
-            color="gray.400"
-            /* defaultValue={data[0]?.full_name} */
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </FormControl>
         <FormControl mb="1rem">
-          <FormLabel htmlFor="full_name">Conteúdo</FormLabel>
-          <Textarea placeholder="Altere os termos aqui" />
+          <FormLabel htmlFor="content">Conteúdo</FormLabel>
+          <Textarea
+            sx={{
+              "&::-webkit-scrollbar": {
+                width: "8px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "blue.900",
+                borderRadius: "10px",
+              },
+              "&::-webkit-scrollbar-thumb:hover": {
+                backgroundColor: "blue.800",
+                cursor: "pointer",
+              },
+            }}
+            id="content"
+            placeholder="Altere os termos aqui"
+            h="300px"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
         </FormControl>
-        <Button type="submit" text="Salvar" h="2.5rem" maxW="15vw" />
+        <Button
+          type="submit"
+          text={isPending ? "Atualizando..." : "Salvar"}
+          h="2.5rem"
+          maxW="15vw"
+        >
+          {isPending && <Spinner size="sm" />}
+        </Button>
       </form>
     </Flex>
   );

@@ -19,9 +19,7 @@ export default function UserProfile() {
   const { mutate } = useEditUser();
   const userId = getUserIdFromToken();
 
-  const { data, isLoading } = useUsersById(userId);
-
-  console.log("dados do usuario", data[0]);
+  const { data } = useUsersById(userId);
 
   const onSubmit: SubmitHandler<UserProps> = async (data) => {
     const userData: UserProps & { admin: false; terms_accepted: true } = {
