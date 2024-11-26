@@ -3,3 +3,7 @@ export interface TermsAndConditionsProps {
   content: string;
 }
 
+export interface AcceptTermsProps {
+  terms_accepted: number;
+  userId: number;
+}

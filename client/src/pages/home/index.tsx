@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import { Outlet } from "react-router-dom";
 import ModalTermsAndConditions, { ModalPrivacy } from "../../components/Modals";
+import NewTermsModal from "../../components/Modals/NewTerms";
 
 const Home = () => {
   return (
@@ -34,6 +35,7 @@ const Home = () => {
             <ModalTermsAndConditions fontSize="1rem" color="black" />
           </Text>
           <Text>Contact</Text>
+          <NewTermsModal />
         </Flex>
       </Flex>
     </Grid>

@@ -104,7 +104,12 @@ export default function ModalTermsAndConditions({ ...rest }) {
   );
 }
 
-export function ModalDeleteUser() {
+interface ModalDeleteProps {
+  title: string;
+  textColor?: string
+}
+
+export function ModalDeleteUser({title, textColor}: ModalDeleteProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const userId = getUserIdFromToken();
@@ -129,7 +134,7 @@ export function ModalDeleteUser() {
         }}
         bgColor="transparent"
         onClick={onOpen}
-        color="red.600"
+        color={textColor ? textColor : "red.600"}
         h="20px"
         fontSize="14px"
         display="flex"
@@ -137,9 +142,8 @@ export function ModalDeleteUser() {
         alignItems="center"
       >
         <GoAlertFill />
-        Solicitar exclusâo da conta
+        {title}
       </Text>
-
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent
@@ -399,7 +403,8 @@ export function ModalPrivacy() {
                 <Text fontWeight="bold">1. Coleta de Dados:</Text>
                 <Text>
                   Coletamos apenas as informações necessárias para oferecer a
-                  você a melhor experiência, como nome, e-mail, nacionalidade etc.
+                  você a melhor experiência, como nome, e-mail, nacionalidade
+                  etc.
                 </Text>
               </Box>
               <Box>
@@ -422,7 +427,8 @@ export function ModalPrivacy() {
                 <Text fontWeight="bold">4. Seus Direitos:</Text>
                 <Text>
                   Você pode acessar, corrigir ou solicitar a exclusão de seus
-                  dados a qualquer momento, basta entrar em "user settings" e solicitar a exclusão de dados ou editar os dados cadastrados.
+                  dados a qualquer momento, basta entrar em "user settings" e
+                  solicitar a exclusão de dados ou editar os dados cadastrados.
                 </Text>
               </Box>
               <Box>

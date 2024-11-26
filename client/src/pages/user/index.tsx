@@ -171,7 +171,7 @@ export default function UserProfile() {
         </FormControl>
         <Button type="submit" text="Salvar" h="2.5rem" maxW="15vw" />
       </form>
-      <ModalDeleteUser />
+      <ModalDeleteUser title="Solicitar Exclusão dos dados" />
       <ModalRequestData />
     </Flex>
   );
