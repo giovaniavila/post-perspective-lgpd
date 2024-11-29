@@ -1,5 +1,5 @@
 module.exports = {
-    periodicBackupInterval: '*/50 * * * *', // Agendamento padrão (a cada 1 min)
+    periodicBackupInterval: '*/15 * * * *', // Agendamento padrão (a cada 1 min)
 };
 
 

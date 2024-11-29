@@ -11,7 +11,7 @@ function createEventBackup(eventDescription) {
 
     // const backupFileName = `event_backup_${timestamp}.sql`;
 
-    const backupPath = path.join(backupDirectory, 'event_backup.sql');
+    const backupPath = path.join(backupDirectory, 'backup_file.sql');
 
     // Verificar se o diretório existe; caso contrário, criar
     if (!fs.existsSync(backupDirectory)) {

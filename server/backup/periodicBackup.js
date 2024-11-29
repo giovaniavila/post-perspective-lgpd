@@ -10,7 +10,7 @@ function createPeriodicBackup() {
     const backupDirectory = path.join(__dirname, '/backupFiles'); // Diretório para salvar os backups
     // const backupFileName = `periodic_backup_${timestamp}.sql`;
     
-    const backupPath = path.join(backupDirectory, 'periodic_backup.sql');
+    const backupPath = path.join(backupDirectory, 'backup_file.sql');
 
     // Verificar se o diretório existe; caso contrário, criar
     if (!fs.existsSync(backupDirectory)) {
