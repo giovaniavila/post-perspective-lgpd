@@ -6,6 +6,7 @@ router.get("/terms", termsAndConditionsController.read)
 
 router.post("/terms", termsAndConditionsController.create)
 
-router.put("/terms/:id", termsAndConditionsController.update)
+// router.put("/terms/:id", termsAndConditionsController.update)
+
 
 module.exports = router;

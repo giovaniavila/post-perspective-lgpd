@@ -11,7 +11,7 @@ class termsAndConditionsTable {
             title VARCHAR(255) NOT NULL,
             content TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            updated_at TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+            version INT NOT NULL DEFAULT 1 UNIQUE
         );
       `
   
@@ -20,7 +20,7 @@ class termsAndConditionsTable {
           console.log("Error creating Terms&Conditions table: ", error);
           return;
         } else {
-          console.log("Terms&Conditions  table created successfully.");
+          // console.log("Terms&Conditions  table created successfully.");
         }
       });
     }
