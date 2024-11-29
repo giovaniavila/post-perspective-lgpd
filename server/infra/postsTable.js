@@ -25,7 +25,7 @@ class postsTable {
                 console.log("Error creating Posts table: ", error);
                 return;
             } else {
-                console.log("Posts table created successfully.");
+                // console.log("Posts table created successfully.");
             }
         });
     }

@@ -27,7 +27,7 @@ class usersTable {
         console.log("Error creating Users table: ", error);
         return;
       } else {
-        console.log("Users table created successfully.");
+       // console.log("Users table created successfully.");
       }
     });
   }

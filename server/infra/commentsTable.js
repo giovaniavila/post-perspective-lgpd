@@ -26,7 +26,7 @@ class commentsTable {
                 console.log("Error creating Comments table: ", error);
                 return;
             } else {
-                console.log("Comments table created successfully.");
+                // console.log("Comments table created successfully.");
             }
         });
     }
