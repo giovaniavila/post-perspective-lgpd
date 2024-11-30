@@ -17,7 +17,6 @@ import { useState, useEffect } from "react";
 export function TermsAndConditions() {
   const { data } = useTerms();
   const { mutate: editTerms, isPending } = useEditTerms();
-  console.log("data filha de uma puta", { data });
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");

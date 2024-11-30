@@ -26,8 +26,7 @@ import { useTerms } from "../../queries/useTerms";
 export default function ModalTermsAndConditions({ ...rest }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data } = useTerms();
-  console.log(data);
-
+  
   if (!data || data.length === 0) {
     return <Text>Carregando...</Text>;
   }
