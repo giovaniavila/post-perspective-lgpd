@@ -18,7 +18,6 @@ class commentsTable {
                 FOREIGN KEY (user_id) REFERENCES USERS(id) ON DELETE CASCADE,
                 FOREIGN KEY (post_id) REFERENCES POSTS(id) ON DELETE CASCADE
             ); 
-            
         `
 
         this.connection.query(sql, (error) => {
