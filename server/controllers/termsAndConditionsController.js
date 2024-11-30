@@ -11,9 +11,9 @@ async function notifyUsers() {
             Caro usuário,
     
             Gostaríamos de informá-lo que nossos Termos e Condições foram atualizados. 
-            Pedimos que leia atentamente as novas condições, pois ao continuar utilizando nossos serviços, você concorda com os novos termos.
+            Pedimos que leia atentamente as novas condições no nosso site, pois ao continuar utilizando nossos serviços, você concorda com os novos termos.
     
-            Para mais informações, consulte nossos Termos e Condições atualizados em nosso site.
+            Para mais informações, consulte os Termos e Condições atualizados em nosso site.
     
             Atenciosamente,
             Equipe de Suporte
@@ -42,6 +42,7 @@ class termsAndCoditionsController {
       const newTerms = req.body;
 
       const terms = await termsAndCoditionsModel.createTerms(newTerms);
+      await notifyUsers();
       res.status(201).json(terms);
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -65,8 +66,6 @@ class termsAndCoditionsController {
         updatedTerms,
         id
       );
-
-      await notifyUsers();
       res.status(200).json(termsUpdate);
     } catch (error) {
       res.status(400).json({ error: error.message });

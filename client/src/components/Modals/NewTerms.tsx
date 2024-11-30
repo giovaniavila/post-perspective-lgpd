@@ -33,6 +33,10 @@ export default function NewTermsModal({ ...rest }) {
     return <Text>Carregando...</Text>;
   }
 
+  const latestTerm = data.reduce((prev, current) =>
+    prev.id > current.id ? prev : current
+  );
+
   const acceptedTerms = () => {
     if (userId) {
       acceptTerms(
@@ -83,10 +87,10 @@ export default function NewTermsModal({ ...rest }) {
           <Flex gap="1.5625rem" direction="column">
             <Box>
               <Heading id="bem-vindo" as="h1" mb="8px" fontSize="1.5rem">
-                {data[0]?.title}
+                {latestTerm?.title}
               </Heading>
             </Box>
-            <Text whiteSpace="pre-line">{data[0]?.content}</Text>
+            <Text whiteSpace="pre-line">{latestTerm?.content}</Text>
           </Flex>
         </ModalBody>
         <ModalFooter>

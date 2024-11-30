@@ -17,16 +17,23 @@ import { useState, useEffect } from "react";
 export function TermsAndConditions() {
   const { data } = useTerms();
   const { mutate: editTerms, isPending } = useEditTerms();
+  console.log("data filha de uma puta", { data });
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const safeData = data || []; 
 
+  const latestTerm = safeData.reduce(
+    (prev, current) => (prev.id > current.id ? prev : current),
+    {}
+  );
+  
   useEffect(() => {
-    if (data && data.length > 0) {
-      setTitle(data[0]?.title || "");
-      setContent(data[0]?.content || "");
+    if (safeData.length > 0) {
+      setTitle(latestTerm?.title || ""); 
+      setContent(latestTerm?.content || ""); 
     }
-  }, [data]);
+  }, [safeData, latestTerm]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

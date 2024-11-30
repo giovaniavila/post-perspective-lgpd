@@ -9,8 +9,8 @@ export const getTermsAndConditions = async () => {
 export const putTermsAndConditions = async (
   updateTerms: TermsAndConditionsProps
 ): Promise<TermsAndConditionsProps> => {
-  const response = await axios.put(
-    "http://localhost:3000/terms/1",
+  const response = await axios.post(
+    "http://localhost:3000/terms/",
     updateTerms,
     {
       headers: {

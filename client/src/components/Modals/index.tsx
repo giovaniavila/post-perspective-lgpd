@@ -32,6 +32,8 @@ export default function ModalTermsAndConditions({ ...rest }) {
     return <Text>Carregando...</Text>;
   }
 
+  const latestTerm = data.reduce((prev, current) => (prev.id > current.id ? prev : current));
+
   return (
     <>
       <Text
@@ -73,7 +75,7 @@ export default function ModalTermsAndConditions({ ...rest }) {
             },
           }}
         >
-          <ModalHeader>{data[0]?.title}</ModalHeader>
+          <ModalHeader>{latestTerm?.title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Flex gap="1.5625rem" direction="column">
@@ -82,7 +84,7 @@ export default function ModalTermsAndConditions({ ...rest }) {
                   Bem-vindo ao PostPerspective!
                 </Heading>
               </Box>
-              <Text whiteSpace="pre-line">{data[0]?.content}</Text>
+              <Text whiteSpace="pre-line">{latestTerm?.content}</Text>
             </Flex>
           </ModalBody>
           <ModalFooter>
