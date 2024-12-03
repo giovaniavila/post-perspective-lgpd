@@ -22,8 +22,10 @@ const usersTable = require("./infra/usersTable");
 const postsTable = require("./infra/postsTable");
 const commentsTable = require("./infra/commentsTable");
 const termsAndConditionsTable = require("./infra/termsAndConditionsTable");
+const termsVersionsTable = require("./infra/termsVersionsTable");
 
 const routes = require("./routes/index");
+
 
 app.use(cors());
 require('dotenv').config();
@@ -41,6 +43,7 @@ connection.connect((error) => {
   postsTable.init(connection);
   commentsTable.init(connection);
   termsAndConditionsTable.init(connection);
+  termsVersionsTable.init(connection);
 
   app.listen(port, (error) => {
     if (error) {
