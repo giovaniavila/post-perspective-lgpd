@@ -44,6 +44,7 @@ export default function NewTermsModal({ ...rest }) {
         {
           onSuccess: () => {
             onClose();
+            window.location.reload();
           },
           onError: (error) => {
             console.error("Erro ao aceitar os termos:", error);
