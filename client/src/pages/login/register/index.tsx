@@ -47,6 +47,7 @@ export default function Register({ setIsRegistering }: RegisterProps) {
     Canadá: "CA",
     França: "FR",
     Alemanha: "DE",
+    China: "CN",
     // Adicione outros países conforme necessário
   };
 
