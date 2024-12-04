@@ -22,6 +22,7 @@ export const useDeleteComment = () => {
         position: "bottom-left",
       });
       queryClient.invalidateQueries({ queryKey: ["comment"] });
+      window.location.reload();
     },
     onError: () => {
       toast.error("Tivemos problemas ao deletar o comentário :(", {
