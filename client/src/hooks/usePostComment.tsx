@@ -16,6 +16,7 @@ const usePostComment = (user_id: number, post_id: number) => {
         {
           onSuccess: () => {
             setComment("");
+            window.location.reload();
           },
           onError: (error) => {
             console.error("Error posting comment:", error);
