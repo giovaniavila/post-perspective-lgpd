@@ -3,7 +3,7 @@ import { ButtonLink, ButtonLogout, ButtonUserProfile } from "../Button";
 import logout from "../../assets/logout.svg";
 import { useUsersById } from "../../queries/useUsers";
 import { getUserIdFromToken } from "../../hooks/useGetToken";
-import { usePermission } from "./../../hooks/usePermission";
+import { usePermission } from "../../hooks/usePermission";
 import { FaUserPen } from "react-icons/fa6";
 
 const Sidebar = () => {

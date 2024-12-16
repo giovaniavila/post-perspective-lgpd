@@ -1,5 +1,9 @@
 {
   "files": [],
+  "compilerOptions": {
+    "module": "ESNext",
+    "types": ["cypress"]
+  },
   "references": [
     {
       "path": "./tsconfig.app.json"
